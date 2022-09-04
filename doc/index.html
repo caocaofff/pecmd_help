@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>PECMD 命令帮助 - PECMD技术社区: www.pecmd.net</title>
+<link rel="stylesheet" id="_main-css" href="main.css" type="text/css" media="all">
+<link type="text/css" rel="stylesheet" href="lightgallery.min.css">
+<meta name="keywords" content="PECMD, 脚本, 教程">
+<meta name="description" content="PECMD 命令帮助 - PECMD技术社区: pecmd.net">
+
+	<section class="wp-container">
+<div class="wp-content">
+<div class="left-body">
+<div class="article-container">
+		    <header class="article-header">
+				<h1 class="article-title"><a href="https://pecmd.net/doc">PECMD 命令详解</a></h1>
+				<div class="article-meta">
+					<span class="item">修订日期：2020-09-10</span>
+					<span class="item"></span>
+				</div>
+		</header>
+		<article class="article-content">
+		<div class="ez-toc-title-container">
+<p>PECMD 全称 WinPE Commander，即 WinPE 命令解释工具。由于其强大功能，可媲美小型的集成开发环境，故也可以作为正常系统中的应用开发平台。</p>
+<p>除了在 WinPE 环境中用于初始化并登录 Shell，还可以利用其强大自由的扩展性制作出许多简单实用的工具，如果有足够的时间和精力，你完全可以用它开发出常规的桌面应用。</p>
+<h2><span class="ez-toc-section" id="%E5%91%BD%E4%BB%A4%E5%88%86%E7%B1%BB"></span>命令分类<span class="ez-toc-section-end"></span></h2>
+<p><strong>1、窗口控件、子程序命令</strong></p>
+<p>(1)、系统变量：<br>
+CurDir — 当前目录<br>
+Desktop — 桌面<br>
+Favorites — 收藏夹<br>
+Personal — 我的文档<br>
+Programs — 程序<br>
+SendTo — 发送到<br>
+Start — 开始菜单<br>
+Startup — 自动运行<br>
+QuickLaunch — 快速启动栏<br>
+SystemDriver — 系统分区<br>
+SystemRoot — 系统文件夹</p>
+<p>(2)、常用控件：<br>
+<code>ComboBox</code> <code>Button</code> <code>Picture</code> <code>CheckBox</code> <code>HotKey</code> <code>PopupMenu</code> <code>Progress</code> <code>BarGroup</code> <code>Static</code> <code>Timer</code> <code>Radio</code> <code>CHEK</code> <code>Menu</code> <code>LABE</code> <code>EDIT</code> <code>GROU</code> <code>IMAG</code> <code>ITEM</code> <code>MEMO</code> <code>PBAR</code> <code>TIME</code> <code>RADI</code></p>
+<p><strong>2、字符串、字符控制：</strong><br>
+<code>LPOS</code> <code>LSTR</code> <code>MSTR</code> <code>RPOS</code> <code>RSTR</code> <code>STRL</code></p>
+<p><strong>3、窗口、子程序标志：</strong><br>
+<code>_END</code> <code>_SUB</code></p>
+<p><strong>4、常用命令：</strong><br>
+<code>BROW</code> <code>CALC</code> <code>CALL</code> <code>DATE</code> <code>DEVI</code> <code>DISP</code> <code>EJEC</code> <code>ENVI</code> <code>EXEC</code> <code>EXIT</code> <code>FBWF</code> <code>FDIR</code> <code>FDRV</code> <code>FEXT</code> <code>FILE</code> <code>FIND</code> <code>FONT</code> <code>FORX</code> <code>HELP</code> <code>HKEY</code> <code>HOTK</code> <code>IFEX</code> <code>INIT</code> <code>KILL</code> <code>LINK</code> <code>LIST</code> <code>LOAD</code> <code>LOGO</code> <code>LOGS</code> <code>MAIN</code> <code>MD5C</code> <code>MENU</code> <code>MESS</code> <code>MOUN</code> <code>NAME</code> <code>NUMK</code> <code>PAGE</code> <code>PATH</code> <code>RAMD</code> <code>REGI</code> <code>RUNS</code> <code>SEND</code> <code>SERV</code> <code>SHEL</code> <code>SHOW</code> <code>SHUT</code> <code>SITE</code> <code>SUBJ</code> <code>TEAM</code> <code>TEMP</code> <code>TEXT</code> <code>TIPS</code> <code>UPNP</code></p>
+<h2><span class="ez-toc-section" id="%5BSUB%5D"></span>[_SUB]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>_SUB &lt;子过程名&gt; 或 _SUB &lt;窗口名称&gt;,&lt;窗口形状&gt;,[窗口标题],[窗口事件],[窗口图标],[窗口类型]</p>
+<p><strong>功能：</strong>定义子过程或定义一个窗口。</p>
+<p><strong>参数：</strong><br>
+# 子过程名: 字符串。<br>
+# 窗口名称: 字符串，窗口名称应是唯一的，不能与其它控件名称或环境变量名称同名。<br>
+# 窗口标题: 文字。<br>
+# 窗口形状: 窗口位置和大小，格式为&lt;L左T上W宽H高&gt;，左上宽高均为数值，省略”左上”时窗口居中。<br>
+# 窗口事件: 关闭窗口时执行的命令，必须是 PECMD.EXE 支持的命令。<br>
+# 窗口图标: 窗口标题栏和任务栏的图标，格式为&lt;图标文件名#ID&gt;<br>
+# 窗口类型: [-][#][数值]，”-“为无标题栏，”#”为无边框窗口，数值为透明度，数值超99为隐藏窗口。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">_SUB </span><span class="typ">DoLoop</span><span class="pln">
+_SUB </span><span class="typ">Windows1</span><span class="pun">,</span><span class="pln">W360H440</span><span class="pun">,</span><span class="pln">PECMD</span><span class="pun">功能演示,</span><span class="pln">EXEC $</span><span class="pun">使用说明.</span><span class="pln">TXT</span><span class="pun">,%</span><span class="typ">IconFile</span><span class="pun">%</span><span class="com">#19,20</span></pre>
+<p><strong>备注：</strong><br>
+* 子过程名或窗口名的第1个字符不能是”$”，命令关键词_SUB与子过程名或窗口名之间必须是1个空格。<br>
+* 若有多个_SUB命令，这些命令定义的名称不能重复，不能近似，也不能用这些名称设置成环境变量。<br>
+* 本命令与_END命令必须成对出现，均不能在命令行中使用，其它参照_END命令、CALL命令的说明。<br>
+* 要设置窗口的标题，可以使用 “ENVI @窗口名称=窗口标题” 来设置 ，参照 ENVI 命令的说明。</p>
+<h2><span class="ez-toc-section" id="%5BEND%5D"></span>[_END]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>_END</p>
+<p><strong>功能：</strong>结束子过程或结束窗口定义。</p>
+<p><strong>参数：</strong><br>
+# 无</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">_END</span></pre>
+<p><strong>备注：</strong><br>
+* 定义子过程的 _SUB 命令和 _END 命令必须单独一行。即：FIND、IFEX、TEAM 命令内不能定义子过程。<br>
+* _SUB 与 _END 之间的命令(即子过程)只被对应的 CALL 命令执行，主流程会跳过这些命令。<br>
+* _END 命令必须与 _SUB 命令一一匹配，且子过程内不能再定义子过程。<br>
+* 子过程放在配置文件的任意位置都可以被同一配置文件中的 CALL 命令调用，建议放在文件开始处。<br>
+* 该命令及 _SUB 命令只能在配置文件中使用，不能在命令行下使用。</p>
+<h2><span class="ez-toc-section" id="%5BBROW%5D"></span>[BROW]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>BROW &lt;变量名&gt;,[[*|&amp;]初始路径],[提示文字],[扩展名]</p>
+<p><strong>功能：</strong>浏览磁盘文件和目录。</p>
+<p><strong>参数：</strong><br>
+# 变量名: 用于保存浏览结果的变量名。<br>
+# 初始路径: 为浏览窗口默认选中的文件或目录，省略该参数时定位到系统默认的路径；前导符”*”为浏览目录对话框，前导符”&amp;”为保存文件对话框，省略前导符为打开文件对话框。<br>
+# 提示文字: 可以省略，省略时默认的文字为系统默认的文字提示。<br>
+# 扩展名: 浏览指定扩展名的文件，省略表示所有文件。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">BROW </span><span class="typ">Boot_Ini</span><span class="pun">,</span><span class="pln">C</span><span class="pun">:</span><span class="pln">\Windiws\BOOT</span><span class="pun">.</span><span class="pln">INI</span><span class="pun">,请选择一个文件,</span><span class="pln">INI
+BROW </span><span class="typ">Tag</span><span class="pun">,*</span><span class="pln">C</span><span class="pun">:</span><span class="pln">\Windiws</span><span class="pun">,请选择一个目录</span></pre>
+<p><strong>备注：</strong><br>
+* 本命令会打开一个文件目录浏览对话窗，让用户浏览磁盘文件目录，用户可选择某个文件或目录。<br>
+* 选择结果将保存在指定的进程环境变量中。示例2可通过环境变量 %Tag% 来引用。<br>
+* BROW命令必须在INIT命令之后或在桌面执行。</p>
+<h2><span class="ez-toc-section" id="%5BCALC%5D"></span>[CALC]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>CALC [#]&lt;变量0&gt;&lt;=&gt;&lt;变量1&gt;&lt;运算符&gt;&lt;变量2&gt;</p>
+<p><strong>功能：</strong>将”变量1″和”变量2″按”运算符”来运算，把运算结果保存在”变量0″中。</p>
+<p><strong>参数：</strong><br>
+# 前导”#”表示所有变量按 int 型数据来处理，省略该前导表示所有变量按double型数据来处理；<br>
+# “变量1″和”变量2″可以是具体数值，也可以是已存在的变量；<br>
+# “运算符”目前只支持”+”、”-“、”*”、”/”四种运算。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pun">加法运算:</span><span class="pln"> CALC </span><span class="com">#Sum = 128 + 32 或 CALC Sum = %Datum1% + %Datum2%</span><span class="pln">
+</span><span class="pun">乘法运算:</span><span class="pln"> CALC </span><span class="com">#Result = 128 * 64 或 CALC Result = %Datum1% * %Datum2%</span></pre>
+<p><strong>备注：</strong><br>
+* “变量1″或”变量2″可以用 ENVI 命令来直接设置(赋值)，也可以是 CALC 命令运算赋值的结果；<br>
+* “变量1″或”变量2″没有赋值时，当数值”0″处理；要完成复杂的四则运算可用一系列 CACL 命令完成；<br>
+* CACL命令按 double 型变量来处理数据时，最多保留4位小数，要比较数值大小可用IFEX命令来判断。</p>
+<h2><span class="ez-toc-section" id="%5BCALL%5D"></span>[CALL]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>CALL &lt;$DLL名&gt;,[函数],[[#]参数1],[[#]参数2],[[#]参数3],[[#]参数4]或CALL &lt;过程&gt;或CALL &lt;@窗口&gt;</p>
+<p><strong>功能：</strong>调用DLL函数 或 调用子过程。</p>
+<p><strong>参数：</strong><br>
+# 前导”$”表示调用DLL函数，指定DLL路径、函数名和参数。省略函数名，将调用”DllRegisterServer”，参数默认为UNICODE字符串，如果以”#”前导则表示整数；最多支持四个函数参数。<br>
+# 前导”@”表示调用由_SUB命令定义的窗口，不要在_SUB命令定义的窗口内执行CALL @调用另一个窗口。<br>
+# 省略前导”$”表示调用子过程，参数为子过程名称。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pun">调用</span><span class="pln">DLL</span><span class="pun">函数</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> CALL $SHELL32</span><span class="pun">.</span><span class="pln">DLL</span><span class="pun">,</span><span class="typ">DllInstall</span><span class="pun">,</span><span class="com">#1,U</span><span class="pln">
+</span><span class="pun">调用窗口过程:</span><span class="pln"> CALL </span><span class="lit">@Window1</span><span class="pln">
+</span><span class="pun">调用子过程:</span><span class="pln"> FIND MEM</span><span class="pun">&gt;</span><span class="lit">127</span><span class="pun">,</span><span class="pln">CALL EXPLORER_SHELL</span><span class="pun">!</span><span class="pln">CALL CMD_SHELL</span></pre>
+<p><strong>备注：</strong><br>
+* 调用DLL函数 : DLL中的函数必须以 STDCALL 方式导出(不明白什么意思的话，就当没任何问题)。<br>
+* 调用窗口过程: 用CALL 的前导”@”调用窗口时，该CALL命令后的命令将暂停执行，直至窗口关闭。<br>
+* 调用子过程: CALL命令只能调用同一配置文件内的子过程，CALL命令调用子过程的功能不能在命令行中使用，其它参照_SUB和_END命令的说明。</p>
+<h2><span class="ez-toc-section" id="%5BCHEK%5D"></span>[CHEK]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>CHEK &lt;复选框名称&gt;,&lt;复选框形状&gt;,[复选框标题],[复选框事件],[复选框状态] <strong>功能：</strong>在_SUB定义的窗口内建立一个复选框控件。</p>
+<p><strong>参数：</strong><br>
+# 复选框名称: 字符串，复选框的名称应是唯一的，不能与其它控件名称或环境变量名称同名。<br>
+# 复选框形状: 复选框位置和大小，格式为&lt;L左T上W宽H高&gt;，左上宽高均为数值。<br>
+# 复选框标题: 复选框上的文字，用于描述复选框的功能或说明。<br>
+# 复选框事件: 点击该复选框时执行的命令，必须是 PECMD 支持的有效命令。<br>
+# 复选框状态: 数字，1或-1为钩选状态，0，2或-2为没有钩选，小于0为灰色不可用状态。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">CHEK </span><span class="typ">Check1</span><span class="pun">,</span><span class="pln">L180T336W100H20</span><span class="pun">,可写挂载,,</span><span class="lit">1</span></pre>
+<p><strong>备注：</strong><br>
+* CHEK命令必须位于_SUB命令和_END命令之间，其它位置的CHEK命令无效，参照_SUB、CALL命令说明。<br>
+* 环境变量: %复选框名称% 为复选框标题，设置标题，可用 “ENVI @复选框名称=复选框标题” 来设置。<br>
+* 可用”ENVI @复选框名称.Check=数值”来设置复选框钩选状态，数值0为未钩选状态；非0为钩选状态。<br>
+* 可用”ENVI @复选框名称.Enable=数值”来设置复选框可用状态，数值0为禁用状态；非0为可用状态。</p>
+<h2><span class="ez-toc-section" id="%5BDATE%5D"></span>[DATE]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>DATE [变量名] <strong>功能：</strong>返回系统当前日期和时间</p>
+<p><strong>参数：</strong><br>
+# 变量名 用于保存系统当前日期和时间的变量名称</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">DATE </span><span class="typ">SysDate</span></pre>
+<p><strong>备注：</strong><br>
+* 返回结果以”年-月-日|星期|时:分:秒”的形式保存在指定的变量中，要取出其中的”日期”或”时间”，请用 PECMD 的 字符串处理命令(LPOS、RPOS、LSTR、MSTR、RSTR)来处理；<br>
+* 若省略”变量名”时，结果保存在环境变量%CurDate%中，示例的结果可能是”2008-8-8|5|20:8:8″。</p>
+<h2><span class="ez-toc-section" id="%5BDEVI%5D"></span>[DEVI]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>DEVI [$]</p>
+<p><strong>功能：</strong>从 CAB 文件或指定的文件夹中查找(并安装)驱动程序。</p>
+<p><strong>参数：</strong><br>
+# 指定CAB文件路径。前导”$”表示解压缩驱动文件后安装驱动，否则不安装驱动。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">DEVI </span><span class="pun">%</span><span class="typ">SystemRoot</span><span class="pun">%</span><span class="pln">\DRV</span><span class="pun">.</span><span class="pln">CAB</span></pre>
+<p><strong>备注：</strong><br>
+* 此命令使用自定的(而非系统的)驱动搜索算法，可快速解压缩可能用到的驱动程序，因此，一个设备可能搜索到多个驱动程序。<br>
+* 在CAB中，把每个驱动单独放在一个目录中，并保证CAB中INF文件总是在当前目录的最前面，且CAB中的INF文件必须经过处理。建议使用配套程序XCAB来制作。<br>
+* INF文件解压缩到”%SystemRoot%\INF”目录，SYS文件解压缩到%SystemRoot%\SYSTEM32\DRIVERS目录，其它文件解压缩到%SystemRoot%\SYSTEM32目录。<br>
+* 如果其它文件需要解压缩到特定目录中，可以在文件名中使用”#”代替目录分隔符，如文件”SYSTEM32#WBEM#MOF#XXX.MOF”将会被解压缩到”%SystemRoot%\SYSTEM32\WBEM\MOF\XXX.MOF”。<br>
+* 此命令还有一个<strong>功能：</strong>从本地磁盘中搜索驱动，如”DEVI \Windows,Display”。但此命令未完善，会提示驱动文件对话窗。因此，本功能暂不提供技术支持。</p>
+<h2><span class="ez-toc-section" id="%5BDISP%5D"></span>[DISP]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>DISP [W水平分辨率 H垂直分辨率] [B颜色深度] [F刷新率] [T等待(毫秒)]</p>
+<p><strong>功能：</strong>设置显示参数。</p>
+<p><strong>参数：</strong><br>
+# 分别指定屏幕参数，如果省略则使用原来的设置。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">DISP W1024 H768 B32 F70 T5000</span></pre>
+<p><strong>备注：</strong><br>
+* 前三组参数可单独使用，如要设置刷新率为75，使用 DISP F75 即可。</p>
+<h2><span class="ez-toc-section" id="%5BEDIT%5D"></span>[EDIT]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>EDIT &lt;编辑框名称&gt;,&lt;编辑框形状&gt;,[编辑框内容],[编辑框事件],[编辑框类型]</p>
+<p><strong>功能：</strong>在_SUB定义的窗口内建立一个单行文本编辑框。</p>
+<p><strong>参数：</strong><br>
+# 编辑框名称: 字串，编辑框名称应是唯一的，不能与其它控件名称或环境变量名称同名。<br>
+# 编辑框形状: 编辑框位置和大小，格式为&lt;L左T上W宽H高&gt;，左上宽高均为数值。<br>
+# 编辑框内容: 字串，初始化编辑框时填入的文字内容。<br>
+# 编辑框事件: 在编辑框内按下回车键时执行的命令，必须是 PECMD 支持的有效命令。<br>
+# 编辑框类型: 数字，默认为0，表示正常编辑框，大于0表示密码输入框，小于0为灰色禁用编辑框。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">EDIT </span><span class="typ">Edit1</span><span class="pun">,</span><span class="pln">L32T244W240H24</span><span class="pun">,</span><span class="pln">C</span><span class="pun">:</span><span class="pln">\Windows</span><span class="pun">,</span><span class="pln">ENVI </span><span class="lit">@Label1</span><span class="pun">=%</span><span class="typ">Edit1</span><span class="pun">%</span></pre>
+<p><strong>备注：</strong><br>
+* EDIT命令必须位于_SUB命令和_END命令之间，其它位置的EDIT命令无效，参照_SUB、CALL命令说明。<br>
+* 要设置编辑框的文字内容，可使用 “ENVI @编辑框名称=文本内容” 来设置，参照 ENVI 命令的说明。<br>
+* 可用”ENVI @编辑框名称.Enable=数值”来设置编辑框的可用状态；0为不可用状态，非0为可用状态。<br>
+* 可用”ENVI @编辑框名称.ReadOnly=数值”来设置编辑框的只读状态；0为非只读状态，非0为只读状态。</p>
+<h2><span class="ez-toc-section" id="%5BEJEC%5D"></span>[EJEC]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>EJEC [C-|U-|R:]</p>
+<p><strong>功能：</strong>移除或弹出指定的USB或CDROM驱动器；本命令的功能未完善。</p>
+<p><strong>参数：</strong><br>
+# 参数”C-“将弹出所有可能的光驱的光盘；参数”U-“将移除所有可能的USB磁盘。<br>
+# 参数”R:”将弹出或移除指定盘符的光驱或USB磁盘；省略参数会弹出或移除所有可能的光驱或USB磁盘。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">EJEC
+EJEC C</span><span class="pun">-</span><span class="pln">
+EJEC U</span><span class="pun">-</span><span class="pln">
+EJEC H</span><span class="pun">:</span></pre>
+<p><strong>备注：</strong><br>
+* 本命令为系统托盘没有U盘管理图标的精简PE使用；对于有U盘管理图标的PE，建议使用系统托盘图标。<br>
+* 本命令不要在配置文件中使用；INIT命令带”I”参数会将本命令的功能安装到托盘图标的菜单中。</p>
+<h2><span class="ez-toc-section" id="%5BENVI%5D"></span>[ENVI]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>ENVI [$|@|*][名称][[=]值]</p>
+<p><strong>功能：</strong>设置或清除环境变量。</p>
+<p><strong>参数：</strong><br>
+# 指定环境变量名称和值。如果省略前导符且不指定值，则为删除指定名称的环境变量。<br>
+# 前导”$”表示设置系统级环境变量，否则仅设置本程序内部使用的(进程级)环境变量。<br>
+# 前导”@”表示设置窗口控件的名称或窗口控件的文本标题。<br>
+# 前导”*”(省略名称和值)表示将光驱的盘符以 CDROM0、CDROM、CDROM1、CDROM2 等写入系统环境变量。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">ENVI TEMP</span><span class="pun">=%</span><span class="typ">SystemDrive</span><span class="pun">%</span><span class="pln">\TEMP</span></pre>
+<p><strong>备注：</strong><br>
+* 如果使用”EXEC”执行的程序，会自动继承本程序的环境变量，换句话说，如果在配置文件中设置带”$” 的环境变量，对后面的”EXEC”程序中也会有效。<br>
+* 在命令提示符下,可以通过没有参数的ENVI命令刷新环境变量。<br>
+* 当仅有参数”$”时，则初始化用户文件夹，命令提示符下也可刷新环境变量。</p>
+<h2><span class="ez-toc-section" id="%5BEXEC%5D"></span>[EXEC]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>EXEC [=][!][@][$][&amp;][参数]</p>
+<p><strong>功能：</strong>执行 EXE 、BAT、CMD 程序。</p>
+<p><strong>参数：</strong><br>
+# 指定程序路径和参数。前导参数如下(可同时使用，不分先后顺序):<br>
+# 前导”=”表示等待执行完成，前导”!”表示以隐藏方式执行。<br>
+# 前导”@”表示在后台桌面(WinLogon)执行，彻底隐藏，无法与用户交互，可用于注册，如:”EXEC @PECMD.EXE CALL $SHELL32.DLL,DllInstall,#1,U”。<br>
+# 前导”&amp;”表示修改进程中的关机代码(挂接”ExitWindowsEx”函数)。建议执行”EXEC &amp;EXPLORER.EXE”修改SHELL的关机函数，这样执行”开始-&gt;关闭系统”的时候就会运行”PECMD.EXE SHUT”命令来关机。<br>
+# 前导”$”表示以ShellExecute函数执行，用于打开非可执行文件(如 .TXT、.BMP 等)。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">EXEC </span><span class="pun">=!</span><span class="pln">CMD</span><span class="pun">.</span><span class="pln">EXE </span><span class="pun">/</span><span class="pln">C </span><span class="str">"DEL /Q /F %TEMP%"</span></pre>
+<p><strong>备注：</strong><br>
+* SHELL 也是通过此命令来载入的。</p>
+<h2><span class="ez-toc-section" id="%5BEXIT%5D"></span>[EXIT]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>EXIT</p>
+<p><strong>功能：</strong>退出当前的CALL命调用的子过程，或退出LOAD命令调用的配置文件过程。</p>
+<p><strong>参数：</strong><br>
+# 无</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">IFEX $</span><span class="pun">%</span><span class="typ">Val</span><span class="pun">%=</span><span class="lit">10</span><span class="pun">,</span><span class="pln">EXIT</span><span class="pun">!</span><span class="pln">ENVI </span><span class="typ">Val</span><span class="pun">=</span><span class="pln">
+FIND $</span><span class="pun">%</span><span class="typ">CancelIt</span><span class="pun">%=</span><span class="pln">YES</span><span class="pun">,</span><span class="pln">EXIT</span><span class="pun">!</span><span class="pln">ENVI </span><span class="typ">CancelIt</span><span class="pun">=</span></pre>
+<p><strong>备注：</strong><br>
+* 示例1表示数值变量Val的值为10时退出当前过程<br>
+* 示例2表示环境变量CancelIt为YES时退出当前过程。</p>
+<h2><span class="ez-toc-section" id="%5BFBWF%5D"></span>[FBWF]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>FBWF [P可用内存百分数] [L最小值] [H最大值]</p>
+<p><strong>功能：</strong>设置FBWF缓存</p>
+<p><strong>参数：</strong><br>
+# 最大值、最小值均为MB。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">FBWF P20 L32 H64</span></pre>
+<p><strong>备注：</strong><br>
+* 三个参数都可单独使用，如 FBWF L64 表示强制设置 64M 的 FBWF；FBWF命令必须在 MOUN 命令之后。</p>
+<h2><span class="ez-toc-section" id="%5BFDIR%5D"></span>[FDIR]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>FDIR &lt;变量名&gt;&lt;=&gt;&lt;文件名&gt;</p>
+<p><strong>功能：</strong>返回指定”文件名”所在的目录名(最后无”\”)</p>
+<p><strong>参数：</strong><br>
+# 变量名 用于保存目录名的变量名称；<br>
+# 文件名 合法的文件名称。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">FDIR fPath</span><span class="pun">=</span><span class="pln">C</span><span class="pun">:</span><span class="pln">\Windows\System32\calc</span><span class="pun">.</span><span class="pln">exe
+FDIR aPath</span><span class="pun">=%</span><span class="typ">CurDir</span><span class="pun">%</span><span class="pln">\Path1\Path2\FileName</span></pre>
+<p><strong>备注：</strong><br>
+* 当文件名是相对路径时，返值结果是 PECMD.EXE 的工作目录或配置文件的工作目录；<br>
+* 示例1结果是”C:\Windows\System32″<br>
+* 示例2结果是”%CurDir%\Path1\Path2″。</p>
+<h2><span class="ez-toc-section" id="%5BFDRV%5D"></span>[FDRV]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>FDRV &lt;变量名&gt;&lt;=&gt;[文件目录名]</p>
+<p><strong>功能：</strong>返回指定”文件目录名”所在的分区盘符(以”:”结束，最后无”\”)或系统所有盘符。</p>
+<p><strong>参数：</strong><br>
+# 变量名: 用于保存分区盘符的变量名称；<br>
+# 文件名: 合法的文件目录名称(也可省略，省略时另有意义，见《备注》的解释。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">FDRV fDrive</span><span class="pun">=</span><span class="pln">C</span><span class="pun">:</span><span class="pln">\Windows\System32\calc</span><span class="pun">.</span><span class="pln">exe
+FDRV </span><span class="typ">AllDrive</span><span class="pun">=</span></pre>
+<p><strong>备注：</strong><br>
+* 当文件名是相对路径时，返值结果是 PECMD.EXE 的工作目录或配置文件的工作目录所在的分区盘符；<br>
+* 当省略”文件目录名”时返回系统所有盘符，返回值是 C:|D:|E:|F:|…. 的形式。<br>
+* 示例1结果是”C:”，示例2结果是系统所有盘符的列表(注意这个列表不是固定的，会随时发生变化)。</p>
+<h2><span class="ez-toc-section" id="%5BFEXT%5D"></span>[FEXT]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>FEXT &lt;变量名&gt;&lt;=&gt;&lt;文件名&gt;</p>
+<p><strong>功能：</strong>返回指定”文件名”的扩展名(不带”.”)</p>
+<p><strong>参数：</strong><br>
+# 变量名: 用于保存扩展名的变量名称；<br>
+# 文件名: 合法的文件名称。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">FEXT fExt</span><span class="pun">=</span><span class="pln">C</span><span class="pun">:</span><span class="pln">\Windows\System32\calc</span><span class="pun">.</span><span class="pln">exe
+FEXT aExt</span><span class="pun">=</span><span class="pln">X</span><span class="pun">:</span><span class="pln">\Path1\Path2\FileName</span></pre>
+<p><strong>备注：</strong><br>
+* 示例1结果是”exe”，示例2返回结果是空值；<br>
+* FDIR、FDRV、FEXT 的返回值都可以用 FIND 命令检测或比较。</p>
+<h2><span class="ez-toc-section" id="%5BFILE%5D"></span>[FILE]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>FILE &lt;文件路径&gt;[操作符][目标路径]</p>
+<p><strong>功能：</strong>操作文件或目录。</p>
+<p><strong>参数：</strong><br>
+# 指定源文件路径和目标路径，支持通配符，可以用分号同时操作多个文件。操作符”-&gt;”、”=&gt;”分别对应移动、复制，没有操作符则表示删除操作。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">FILE </span><span class="pun">%</span><span class="typ">SystemRoot</span><span class="pun">%</span><span class="pln">\INF\*</span><span class="pun">.</span><span class="pln">INF</span><span class="pun">=&gt;%</span><span class="pln">TEMP</span><span class="pun">%</span></pre>
+<p><strong>备注：</strong><br>
+* 如果以RAMDISK启动系统，可删除启动后无用的文件(如2M的NTOSKRNL.EXE)来增加RAMDISK的可写空间。</p>
+<h2><span class="ez-toc-section" id="%5BFIND%5D"></span>[FIND]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>FIND &lt;条件&gt;,[命令1][!命令2]</p>
+<p><strong>功能：</strong>依据条件表达式是否成立，成立则执行命令1，不成立则执行命令2。</p>
+<p><strong>参数：</strong><br>
+# 条件对[内存总数]或[磁盘总空间]或[按键]或[环境变量]或[内存进程]的判断。<br>
+# 内存总数MEM&lt;比较符&gt;数值。<br>
+# 磁盘总空间R:\&lt;比较符&gt;数值，R:表示盘符。<br>
+# 按键KEY&lt;比较符&gt;数值。<br>
+# 内存进程内存进程名。<br>
+# 环境变量$%环境变量名%&lt;比较符&gt;环境变量值，环境变量的比较是不区分大小写的。<br>
+# 比较符比较操作符为”&lt;“、”&gt;”、”=”，分别表示”小于”、”大于”、”等于”。<br>
+# 数值比较的数值，磁盘和内存单位是MB，按键数值是按键代码。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">FIND MEM</span><span class="pun">&lt;</span><span class="lit">128</span><span class="pun">,</span><span class="pln">SHEL </span><span class="pun">%</span><span class="typ">SystemRoot</span><span class="pun">%</span><span class="pln">\SYSTEM32\XPLORER2</span><span class="pun">.</span><span class="pln">EXE</span><span class="pun">!</span><span class="pln">SHELL </span><span class="pun">%</span><span class="typ">SystemRoot</span><span class="pun">%</span><span class="pln">\EXPLORER</span><span class="pun">.</span><span class="pln">EXE
+FIND $</span><span class="pun">%</span><span class="pln">OUTSIDE</span><span class="pun">%=,</span><span class="pln">ENVI $OUTSIDE</span><span class="pun">=%</span><span class="typ">CurDrv</span><span class="pun">%</span><span class="pln">\外</span><span class="pun">置程序</span></pre>
+<p><strong>备注：</strong><br>
+* 本命令功能强大，比较复杂，且可以嵌套(FIND或IFEX)使用，判断多个条件。IFEX命令功能与其相似。<br>
+* &lt;条件表达式&gt;后的”,”号也可用”*”代替。<br>
+* 本命令嵌套FIND或IFEX命令时，被嵌套的命令中不能使用”!”分隔符。<br>
+* 当 FIND 命令用于检测按键时，若用户按了 ‘A’～’Z’ 或 ‘0’～’9′ 这些键，按键结果将保存在环境变量 %PressKey% 中。</p>
+<h2><span class="ez-toc-section" id="%5BFONT%5D"></span>[FONT]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>FONT &lt;字体路径&gt;,[起始分区]</p>
+<p><strong>功能：</strong>注册字体或外挂字体</p>
+<p><strong>参数：</strong><br>
+# 字体文件路径和起始分区。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">FONT </span><span class="pun">%</span><span class="typ">CurDrv</span><span class="pun">%</span><span class="pln">\外</span><span class="pun">置程序</span><span class="pln">\FONT
+FONT \WINDOWS
+FONT \WINDOWS</span><span class="pun">,</span><span class="pln">C</span><span class="pun">:</span></pre>
+<p><strong>备注：</strong><br>
+* 命令第1个字符是”\”时，将从指定的起始分区开始搜索机子所有分区 Windows\Fonts目录下的字体，并安装注册,定义起始分区可避免搜索机子中存在的软驱，省略起始分区将搜索机子所有分区(含软驱)。</p>
+<h2><span class="ez-toc-section" id="%5BFORX%5D"></span>[FORX]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>FORX [@][[!]\]&lt;文件&gt;,&lt;变量&gt;,[数值],&lt;命令&gt; [参数,参数…]&lt;%变量%&gt;[,参数,参数…][,…]</p>
+<p><strong>功能：</strong>对匹配的文件目录进行对应的命令操作，本命令的功能类似CMD.EXE的for命令。</p>
+<p><strong>参数：</strong><br>
+# 文件: 指定文件目录名，可带有通配符。<br>
+# 变量: 指定变量名，该变量不能是已存在的环境变量或已存在的窗口控件名。<br>
+# 数值: 对匹配的文件目录执行相应次数的命令操作，0或&lt;0表示对所有存在的文件执行命令操作。<br>
+# 命令: PECMD.EXE合法有效的命令，命令后的参数格式和个数由该命令而定。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">FORX </span><span class="pun">%</span><span class="typ">CurDir</span><span class="pun">%</span><span class="pln">\Path1\*</span><span class="pun">.</span><span class="pln">DLL</span><span class="pun">,</span><span class="typ">AnyDLL</span><span class="pun">,</span><span class="lit">0</span><span class="pun">,</span><span class="pln">CALL </span><span class="pun">%</span><span class="typ">AnyDLL</span><span class="pun">%</span><span class="pln">
+FORX \auto</span><span class="pun">*.</span><span class="pln">INF</span><span class="pun">,</span><span class="typ">AutoRunVirus</span><span class="pun">,</span><span class="lit">0</span><span class="pun">,</span><span class="pln">FILE </span><span class="pun">%</span><span class="typ">AutoRunVirus</span><span class="pun">%</span><span class="pln">
+FORX </span><span class="pun">!</span><span class="pln">\WinPE\WinPE</span><span class="pun">.</span><span class="pln">INI</span><span class="pun">,</span><span class="typ">MyIni</span><span class="pun">,</span><span class="lit">1</span><span class="pun">,</span><span class="pln">LOAD </span><span class="pun">%</span><span class="typ">MyIni</span><span class="pun">%</span></pre>
+<p><strong>备注：</strong><br>
+* 该命令可以搜索到带有属性的文件目录，如隐藏属性的文件目录。<br>
+* 前导”\”表示搜索所有分区，”!”表示对所有分区进行逆序搜索，两前导”[!]\”符中”!”不能单独存在。<br>
+* 前导”@”表示仅搜索目录并进行相应操作，省略该前导表示仅搜索文件并进行相应操作。<br>
+* 示例1，表示注册 %CurDir%\Path1\ 目录中的所有 DLL。<br>
+* 示例2，表示删除所有分区根目录的 auto*.INF 文件。<br>
+* 示例3，表示逆序搜索所有分区WinPE目录下的WinPE.INI，把搜索的第1个WinPE.INI用LOAD命令加载。</p>
+<h2><span class="ez-toc-section" id="%5BGROU%5D"></span>[GROU]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>GROU &lt;组合面板名称&gt;,&lt;组合面板形状&gt;,[组合面板标题]</p>
+<p><strong>功能：</strong>在_SUB定义的窗口内建立组合面板，用于说明组合面板内控件的功能和作用。</p>
+<p><strong>参数：</strong><br>
+# 组合面板名称: 字串，组合面板名称应是唯一的，不能与其它控件名称或环境变量名称同名。<br>
+# 组合面板形状: 组合面板的位置和大小，格式为&lt;L左T上W宽H高&gt;，左上宽高均为数值。<br>
+# 组合面板标题: 字串，用以描述组合面板的作用或功能。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">GROU </span><span class="typ">Group1</span><span class="pun">,</span><span class="pln">L8T4W336H400</span><span class="pun">,注册</span><span class="typ">WimShExt</span><span class="pun">.</span><span class="pln">DLL</span></pre>
+<p><strong>备注：</strong><br>
+* GROU命令必须位于_SUB命令和_END命令之间，其它位置的GROU命令无效，参照_SUB、CALL命令说明。<br>
+* 要设置组合面板标题，可以使用”ENVI @组合面板名称=组合面板标题”来设置 ，参照ENVI命令的说明。</p>
+<h2><span class="ez-toc-section" id="%5BHELP%5D"></span>[HELP]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>HELP [文字前景颜色][#文字背景颜色]</p>
+<p><strong>功能：</strong>显示帮助信息。</p>
+<p><strong>参数：</strong><br>
+# 数值(支持16进制)。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">HELP </span><span class="lit">0x00EEFF</span><span class="com">#0xFF0000</span></pre>
+<p><strong>备注：</strong><br>
+* 不用命令行参数，直接执行本程序，也会显示帮助信息。</p>
+<h2><span class="ez-toc-section" id="%5BHKEY%5D"></span>[HKEY]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>HKEY [辅助按键 + ]&lt;#虚拟按键代码&gt;&lt;,热键命令&gt;</p>
+<p><strong>功能：</strong>设置系统热键，并指定该热键执行的命令。</p>
+<p><strong>参数：</strong><br>
+# 辅助按键: 4个辅助按键(Alt、Ctrl、Shift和Win)可用字符串表示，辅助按键间用”+”连接。<br>
+# 按键代码: 按键用虚拟按键代码表示，支持16进制数值。<br>
+# 热键命令: 必须是 PECMD 支持的有效命令。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">HKEY </span><span class="com">#255,SHUT R</span><span class="pln">
+HKEY </span><span class="typ">Ctrl</span><span class="pun">+</span><span class="typ">Alt</span><span class="pun">+</span><span class="com">#0x41,DISP W800H600B16F75</span></pre>
+<p><strong>备注：</strong><br>
+* HKEY命令必须位于_SUB命令和_END命令之间，其它位置的HKEY命令无效，参照_SUB、CALL命令说明。<br>
+* 第1个示例是按下电源键调用SHUT命令重启。<br>
+* 注意设置的热键不能与其它程序的热键冲突。</p>
+<h2><span class="ez-toc-section" id="%5BHOTK%5D"></span>[HOTK]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>HOTK [辅助按键 + ]&lt;#虚拟按键代码&gt;,&lt;命令&gt;</p>
+<p><strong>功能：</strong>设置系统热键，并指定该热键执行的命令(.EXE 或 .CMD 或 .BAT)。</p>
+<p><strong>参数：</strong><br>
+# 4个辅助按键可用字符串表示，其它按键用虚拟按键代码，支持16进制数值。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">HOTK </span><span class="com">#255,PECMD.EXE SHUT E</span><span class="pln">
+HOTK </span><span class="typ">Ctrl</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="typ">Alt</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="com">#36,PECMD.EXE</span></pre>
+<p><strong>备注：</strong><br>
+* 第1个示例是按下电源键调用PECMD的SHUT功能关机。<br>
+* 本命令不能在命令行中使用，只能在配置文件中使用；PECMD最多能设置8组热键。<br>
+* 热键的注册结果写在注册表”HKEY_LOCAL_MACHINE\SOFTWARE\PELOGON”项下。<br>
+* SHEL命令必须在 HOTK 命令之后。<br>
+* 只有通过SHEL命令加载SHELL时，才能通过HOTK命令注册热键。</p>
+<h2><span class="ez-toc-section" id="%5BIFEX%5D"></span>[IFEX]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>IFEX &lt;条件&gt;,[命令1][!命令2]</p>
+<p><strong>功能：</strong>依据条件表达式是否成立，成立则执行命令1，不成立则执行命令2。</p>
+<p><strong>参数：</strong><br>
+# 条件对[可用内存]或[磁盘可用空间]或[按键]或[数值变量]或[文件目录]的判断。<br>
+# 可用内存MEM&lt;比较符&gt;数值。<br>
+# 磁盘可用空间R:\&lt;比较符&gt;数值，R:表示盘符。<br>
+# 按键KEY&lt;比较符&gt;数值。<br>
+# 文件目录文件目录名，可以使用通配符。<br>
+# 数值变量$%数值变量名%&lt;比较符&gt;数值或数值变量名，数值变量是CALC或ENVI赋值设置的变量。<br>
+# 比较符比较操作符为”&lt;“、”&gt;”、”=”，分别表示”小于”、”大于”、”等于”。<br>
+# 数值比较的数值，磁盘和内存单位是MB，按键数值是按键代码。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">IFEX KEY</span><span class="pun">=</span><span class="lit">17</span><span class="pun">,</span><span class="pln">TEAM TEXT </span><span class="pun">搜索字体|</span><span class="pln">FONT \WINDOWS</span><span class="pun">!</span><span class="pln">TEAM TEXT </span><span class="pun">安装字体|</span><span class="pln">FONT </span><span class="pun">%</span><span class="typ">CurDrv</span><span class="pun">%</span><span class="pln">\外</span><span class="pun">置程序</span><span class="pln">\FONT
+IFEX C</span><span class="pun">:</span><span class="pln">\Windows</span><span class="pun">,!</span><span class="pln">MESS </span><span class="pun">目录</span><span class="pln">C</span><span class="pun">:</span><span class="pln">\Windows</span><span class="pun">不存在，</span><span class="pln">\n</span><span class="pun">请点[确定]。@</span><span class="pln"> </span><span class="pun">目录检查</span><span class="com">#OK</span></pre>
+<p><strong>备注：</strong><br>
+* 本命令功能强大，比较复杂，且可以嵌套(IFEX或FIND)使用，判断多个条件。FIND命令功能与其相似。<br>
+* &lt;条件表达式&gt;后的”,”号也可用”*”代替。<br>
+* 本命令嵌套IFEX或FIND命令时，被嵌套的命令中不能使用”!”分隔符。<br>
+* 当IFEX命令用于检测按键时，若用户按了’A’～’Z’或’0’～’9’这些键，按键结果保存在%PressKey%中。<br>
+* 本命令用于变量判断时，所有变量均按double型来处理(最多保留4位小数)。</p>
+<h2><span class="ez-toc-section" id="%5BIMAG%5D"></span>[IMAG]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>IMAG &lt;图片框名称&gt;,[图片框形状],[图像文件名]</p>
+<p><strong>功能：</strong>在_SUB定义的窗口内建立一个图片框。</p>
+<p><strong>参数：</strong><br>
+# 图片框名称: 字串，标签名称应是唯一的，不能与其它控件名称或环境变量名称同名。<br>
+# 图片框形状: 图片框形状的位置和大小，格式为&lt;L左T上W宽H高&gt;，左上宽高均为数值。<br>
+# 图像文件名: 图像文件(支持所有Windows支持的图像文件)将被显示在指定的图片框上。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">IMAG </span><span class="typ">Image1</span><span class="pun">,</span><span class="pln">L8T380W140H70</span><span class="pun">,%</span><span class="typ">CurDir</span><span class="pun">%</span><span class="pln">\logo</span><span class="pun">.</span><span class="pln">gif</span></pre>
+<p><strong>备注：</strong><br>
+* IMAG命令必须位于_SUB命令和_END命令之间，其它位置的IMAG命令无效，参照_SUB、CALL命令说明。<br>
+* 因PECMD.EXE是脚本解释程序，不建议加载大尺寸的图像文件，否则显示会慢。</p>
+<h2><span class="ez-toc-section" id="%5BINIT%5D"></span>[INIT]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>INIT [C][I][K][U]</p>
+<p><strong>功能：</strong>执行最基本初始化，注册Window外壳，初始化用户文件夹和环境变量，安装键盘钩子，并建立以下目录:<br>
+Favorites 收藏夹目录 Programs 程序菜单目录<br>
+Desktop 桌面目录 SendTo 发送到目录<br>
+StartMenu 开始菜单目录 Personal 我的文档目录<br>
+Startup 启动菜单目录 QuickLaunch 快速启动目录</p>
+<p><strong>参数：</strong><br>
+# 参数”C”表示将光驱的盘符写入环境变量；参数”I”表示将PECMD的部分功能安装到托盘图标的菜单中；<br>
+# 参数”K”表示执行 INIT 命令立即安装低级键盘钩子，否则加载SHELL后才安装低级键盘钩子；<br>
+# 参数”U”将USB的盘符写入环境变量(功能未完善)。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">INIT
+INIT C
+INIT CH
+INIT CIK
+INIT CIKU</span></pre>
+<p><strong>备注：</strong><br>
+* 执行INIT命令后，再执行SHEL命令加载指定的SHELL即可启动一个最小化的WinPE。<br>
+* 执行INIT命令前确保%USERPROFILE%所在分区有一定的可写空间，否则INIT命令无法完成工作。<br>
+* 带参数”C”时，光驱盘符保存在以CDROM开头的环境变量中(这些环境变量必须在启动后刷新才生效)。<br>
+* 参数”K”表示即刻安装键盘钩子，接管Ctrl+Alt+Del，呼出任务管理器。<br>
+* 带参数”U”时，USB的盘符保存在以USB开头的环境变量中(这些环境变量必须在启动后刷新才生效)。<br>
+* 公开发行WinPE的INIT命令不建议带”K”参数，本命令不能在命令行中使用，只能在配置文件中使用。</p>
+<h2><span class="ez-toc-section" id="%5BITEM%5D"></span>[ITEM]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>ITEM &lt;按钮名称&gt;,&lt;按钮形状&gt;,[按钮标题],[按钮事件],[按钮图标],[按钮状态]</p>
+<p><strong>功能：</strong>在_SUB定义的窗口内建立一个按钮。</p>
+<p><strong>参数：</strong><br>
+# 按钮名称: 字符串，按钮的名称应是唯一的，不能与其它控件名称或环境变量名称同名。<br>
+# 按钮形状: 按钮位置和大小，格式为&lt;L左T上W宽H高&gt;，左上宽高均为数值。<br>
+# 按钮标题: 位于按钮上的文字，用于描述按钮的功能或执行的命令。<br>
+# 按钮事件: 点击该按钮时执行的命令，必须是 PECMD 支持的有效命令。<br>
+# 按钮图标: 在按钮上显示的图标，格式为&lt;图标文件名#ID&gt;，图标大小 = 按钮高度 # 6。<br>
+# 按钮状态: 数字，默认为0表示可用状态按钮，非0为灰色不可用状态按钮。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">ITEM </span><span class="typ">Button3</span><span class="pun">,</span><span class="pln">L32T108W300H54</span><span class="pun">,资源管理器,</span><span class="pln">EXEC explorer</span><span class="pun">.</span><span class="pln">exe</span><span class="pun">,%</span><span class="typ">SystemRoot</span><span class="pun">%</span><span class="pln">\explorer</span><span class="pun">.</span><span class="pln">exe</span></pre>
+<p><strong>备注：</strong><br>
+* ITEM命令必须位于_SUB命令和_END命令之间，其它位置的ITEM命令无效，参照_SUB、CALL命令说明。<br>
+* 要设置按钮上的文本，可使用 “ENVI @按钮名称=按钮文本” 来设置，参照 ENVI 命令的说明。<br>
+* 可用”ENVI @按钮名称.Enable=数值”来设置编辑框的可用状态；0为不可用状态，非0为可用状态。</p>
+<h2><span class="ez-toc-section" id="%5BKILL%5D"></span>[KILL]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>KILL [[&lt;\&gt;窗口标题]|[进程名称]]</p>
+<p><strong>功能：</strong>关闭指定标题的窗口或强制终止指定的进程。</p>
+<p><strong>参数：</strong><br>
+# 前导”\”表示关闭指定标题的窗口，如果省略窗口标题则为关闭_SUB定义的窗口。<br>
+# 省略前导”\”表示结束指定名称(EXE文件名，无路径)进程，如果省略进程名称则终止PECMD的父进程。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">KILL </span><span class="typ">WinLogon</span><span class="pun">.</span><span class="pln">EXE
+KILL \计</span><span class="pun">算器</span></pre>
+<p><strong>备注：</strong><br>
+* 无窗口标题的进程请用进程名来结束。<br>
+* 终止进程时将终止与”进程名称”匹配的所有进程。</p>
+<h2><span class="ez-toc-section" id="%5BLABE%5D"></span>[LABE]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>LABE &lt;文本标签名称&gt;,&lt;文本标签形状&gt;,[文本标签内容]</p>
+<p><strong>功能：</strong>在_SUB定义的窗口内建立一条静态文字标签。</p>
+<p><strong>参数：</strong><br>
+# 标签名称: 字串，标签名称应是唯一的，不能与其它控件名称或环境变量名称同名。<br>
+# 标签形状: 标签的位置和大小，格式为&lt;L左T上W宽H高&gt;，左上宽高均为数值。<br>
+# 标签内容: 字串，要标签显示的文字，支持多行显示，文字行间用”\n”表示断行。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">LABE </span><span class="typ">Label1</span><span class="pun">,</span><span class="pln">L32T280W128H48</span><span class="pun">,请点击</span><span class="str">"打开"</span><span class="pun">按钮以浏览文件。</span></pre>
+<p><strong>备注：</strong><br>
+* LABE命令必须位于_SUB命令和_END命令之间，其它位置的LABE命令无效，参照_SUB、CALL命令说明。<br>
+* 要设置标签上文字内容，可以使用 “ENVI @标签名称=标签文字” 来设置 ，参照 ENVI 命令的说明。</p>
+<h2><span class="ez-toc-section" id="%5BLINK%5D"></span>[LINK]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>LINK [!]&lt;快捷方式路径&gt;,&lt;目标路径&gt;,[运行参数],[图标路径[#图标索引]],[目标备注],[起始位置]</p>
+<p><strong>功能：</strong>创建快捷方式。</p>
+<p><strong>参数：</strong><br>
+# 快捷方式: 指定要生成的快捷方式的路径，不需要”.LNK”扩展名。<br>
+# 目标路径: 指定快捷方式的目标文件目录(可用相对路径)。若目标不存在，将不会创建快捷方式。<br>
+# 运行<strong>参数：</strong> 目标程序运行参数。<br>
+# 图标路径: 快捷方式图标的路径。<br>
+# 图标索引: 快捷方式图标在文件资源中序号，0为第1个图标，不填则默认。<br>
+# 图标<strong>备注：</strong> 字符串，对目标程序或目录的说明。<br>
+# 起始位置: 目标程序命令的工作目录。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">LINK </span><span class="pun">!%</span><span class="typ">Desktop</span><span class="pun">%</span><span class="pln">\宽</span><span class="pun">带连接,</span><span class="pln">RASPPPOE</span><span class="pun">.</span><span class="pln">CMD</span><span class="pun">,,</span><span class="pln">RASDIAL</span><span class="pun">.</span><span class="pln">DLL</span><span class="com">#19</span></pre>
+<p><strong>备注：</strong><br>
+* 前导”!”表示以最小化方式启动程序，可用于执行批处理文件时最小化命令窗口。</p>
+<h2><span class="ez-toc-section" id="%5BLIST%5D"></span>[LIST]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>LIST &lt;下拉列表框名称&gt;,&lt;下拉列表框形状&gt;,&lt;下拉列表框内容&gt;,[下拉列表框事件],[默认选中的条目]</p>
+<p><strong>功能：</strong>在_SUB定义的窗口内建立一个下拉列表框。</p>
+<p><strong>参数：</strong><br>
+# 下拉列表框名称: 字符串，下拉列表框名称应是唯一的，不能与其它控件名称或环境变量名称同名。<br>
+# 下拉列表框形状: 下拉列表框形状位置和大小，格式为&lt;L左T上W宽H高&gt;，左上宽高均为数值。<br>
+# 下拉列表框内容: 下拉列表框内可供选择的条目，条目与条目之间用字符”|”隔开。<br>
+# 下拉列表框事件: 下拉列表框内被选择条目发生变化时执行的命令，必须是 PECMD 支持的有效命令。<br>
+# 默认选中的条目: 初始化下拉列表框设置被选中的条目。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">LIST </span><span class="typ">List1</span><span class="pun">,</span><span class="pln">L200T360W128H32</span><span class="pun">,</span><span class="pln">EXPLORER</span><span class="pun">|</span><span class="pln">XPLORER2</span><span class="pun">|</span><span class="pln">CMD</span><span class="pun">,</span><span class="pln">ENVI </span><span class="lit">@Label1</span><span class="pun">=%</span><span class="typ">List1</span><span class="pun">%,</span><span class="pln">EXPLORER</span></pre>
+<p><strong>备注：</strong><br>
+* LIST命令必须位于_SUB命令和_END命令之间，其它位置的LIST命令无效，参照_SUB、CALL命令说明。<br>
+* 环境变量 %下拉列表框名称% 为下拉列表框被选中的条目(字符串)。<br>
+* 可用”ENVI @下拉列表框名称.Enable=数值”来设置编辑框的可用状态；0为不可用状态非0为可用状态。</p>
+<h2><span class="ez-toc-section" id="%5BLOAD%5D"></span>[LOAD]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>LOAD &lt;文件路径&gt;</p>
+<p><strong>功能：</strong>按顺序逐条运行配置文件中的命令。</p>
+<p><strong>参数：</strong><br>
+# 指定文件名(含路径，支持环境变量)。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">LOAD \外</span><span class="pun">置程序</span><span class="pln">\PECMD</span><span class="pun">.</span><span class="pln">INI</span></pre>
+<p><strong>备注：</strong><br>
+* 每条命令单独一行，主流程的命令是完全按顺序执行的。不正确的命令或空行将忽略不计。<br>
+* 支持 ANSI 和 UNICODE 格式文本文件，推荐使用 UNICODE 格式文本文件。<br>
+* 配置文件支持整行注释和行后注释，推荐使用”`”(键盘左上角Esc键下面的字符)作为注释起始。<br>
+* 在配置文件中可以使用环境变量”%CurDrv%”表示当前盘符。<br>
+* 如果文件路径第1个字符是”\”，则搜索所有磁盘指定目录中的文件，如”LOAD \MyWinPE\PECMD.INI”。<br>
+* 配置文件所在目录被设置为当前目录，这样创建快捷方式时，快捷方式目标路径可以使用相对路径。<br>
+* 其它的参照MAIN命令的说明。</p>
+<h2><span class="ez-toc-section" id="%5BLOGO%5D"></span>[LOGO]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>LOGO [[#背景颜色]|[图片文件]],[位置大小]</p>
+<p><strong>功能：</strong>设置或关闭登录画面。</p>
+<p><strong>参数：</strong><br>
+# 背景颜色: 数值，设置背景颜色时必须要有前导符”#”，设置的颜色无效时将使用注册表内定的颜色。<br>
+# 图片文件: 支持BMP/JPG/PNG/GIF等格式，需要GDI+支持。背景颜色和图片文件两者只取其一。<br>
+# 位置大小: LOGO窗口的位置和大小，格式为&lt;L左T上W宽H高&gt;，左上宽高均为数值。<br>
+# 若无<strong>参数：</strong> 则关闭启动画面(渐隐淡出)。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">LOGO </span><span class="pun">%</span><span class="typ">SystemRoot</span><span class="pun">%</span><span class="pln">\LOGON</span><span class="pun">.</span><span class="pln">JPG
+LOGO </span><span class="com">#0xFF0000,L100T100W300H200</span></pre>
+<p><strong>备注：</strong><br>
+* 此命令为非阻塞模式执行。执行本命令后，将立即执行下一条命令。<br>
+* 该命令只能在配置文件中使作，如果在命令行中使用，程序马上退出，将不能看到效果。<br>
+* 省略”左上”时窗口居中，省略”宽高”时为全屏大小，同时省略”左上宽高”时为全屏窗口。<br>
+* 配置文件结束之前，必须调用一次不带参数的”LOGO”命令，以关闭启动画面。<br>
+* WinPE启动时建议使用全屏窗口(位置大小)，使用LOGO图要求的LOGO内存会大些。</p>
+<h2><span class="ez-toc-section" id="%5BLOGS%5D"></span>[LOGS]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>LOGS [文件路径],[数值]</p>
+<p><strong>功能：</strong>启用日志以便记录每条命令的执行结果，帮助用户验证配置文件的正确性。</p>
+<p><strong>参数：</strong><br>
+# 文件路径 : 指日志文件名，含路径。<br>
+# 数值 : 为日志文件申请的内存空间(单位为KB)，日志记录多，所需空间也大，省略即采用默认值16K。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">LOGS </span><span class="pun">%</span><span class="typ">SystemRoot</span><span class="pun">%</span><span class="pln">\PECMD</span><span class="pun">.</span><span class="pln">LOG</span></pre>
+<p><strong>备注：</strong><br>
+* 配置文件结束之前，必须调用一次不带参数的”LOGS”命令，以关闭日志文件(确保日志写入文件)。<br>
+* 此命令不能在命令行中使用(必须在配置文件中使用)。<br>
+* 公开发布的 WinPE 中建议不要启用日志文件。</p>
+<h2><span class="ez-toc-section" id="%5BLPOS%5D"></span>[LPOS]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>LPOS &lt;变量名&gt;&lt;=&gt;&lt;字符串&gt;&lt;,字符&gt;&lt;,数值&gt;</p>
+<p><strong>功能：</strong>返回指定”字符”在”字符串”左边起出现的位置。</p>
+<p><strong>参数：</strong><br>
+# 变量名: 用于保存命令结果的变量名；<br>
+# 字符串: 被检测的字符串，长度不能超2K；<br>
+# 字符: 被检测的字符，不区分大小写；<br>
+# 数值: 指定被检测的字符出现的次数。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">LPOS iPos</span><span class="pun">=</span><span class="lit">123A56</span><span class="pun">|</span><span class="lit">1234A6</span><span class="pun">|</span><span class="pln">abcdef</span><span class="pun">,</span><span class="pln">a</span><span class="pun">,</span><span class="lit">2</span><span class="pln">
+LPOS iPos</span><span class="pun">=</span><span class="lit">123A56</span><span class="pun">|</span><span class="lit">1234A6</span><span class="pun">|</span><span class="pln">abcdef</span><span class="pun">,</span><span class="pln">a</span><span class="pun">,</span><span class="lit">3</span></pre>
+<p><strong>备注：</strong><br>
+* 当”数值”小于1时返回最右边被检测字符的位置，如上例的结果是15；返回结果为0时表示没有找到。<br>
+* 该命令按 Unicode 字符串处理，示例1的返回值为12，示例2的返回值为15(与数值为0的结果相同)。</p>
+<h2><span class="ez-toc-section" id="%5BLSTR%5D"></span>[LSTR]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>LSTR &lt;变量名&gt;&lt;=&gt;&lt;字符串&gt;&lt;,数目&gt;</p>
+<p><strong>功能：</strong>从指定”字符串”的左边截取指定数目的字符，并将结果返回给指定名称的变量。</p>
+<p><strong>参数：</strong><br>
+# 变量名: 用于保存命令结果的变量名；<br>
+# 字符串: 源字符串，长度不能超2K；<br>
+# 数目: 指定截取字符的数目。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">LSTR aStr</span><span class="pun">=</span><span class="lit">1234567890</span><span class="pun">,</span><span class="lit">2</span><span class="pln">
+LSTR aStr</span><span class="pun">=</span><span class="lit">1234567890</span><span class="pun">,</span><span class="lit">5</span></pre>
+<p><strong>备注：</strong><br>
+* 当”数值”小于1时或超出源字符串的长度时，返回结果为整个源字符串(相当于字符串复制)；<br>
+* 该命令按 Unicode 字符串处理，示例1的返回值为”12″，示例2的返回值为”12345″。</p>
+<h2><span class="ez-toc-section" id="%5BMAIN%5D"></span>[MAIN]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>MAIN [文件路径]</p>
+<p><strong>功能：</strong>初始化桌面，接管 Ctrl+Alt+Del，并创建新进程执行 LOAD 功能。</p>
+<p><strong>参数：</strong><br>
+# 指定初始化的配置文件路径。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">MAIN </span><span class="pun">%</span><span class="typ">SystemRoot</span><span class="pun">%</span><span class="pln">\PECMD\PECMD</span><span class="pun">.</span><span class="pln">INI</span></pre>
+<p><strong>备注：</strong><br>
+* MAIN命令创建LOAD进程，执行完LOAD功能后会驻留内存，安装盘键钩子，挂接”ExitWindowsEx”函数。<br>
+* PECMD驻留后占内存较大，你可以使用PECMD的LAOD功能，而MAIN功能则由PELOGON.EXE代替。<br>
+* LAOD命令完成LOAD文件的功能后会自行退出内存，其它的参照LOAD命令的说明。</p>
+<h2><span class="ez-toc-section" id="%5BMD5C%5D"></span>[MD5C]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>MD5C [文件名|$字符串],[变量名]</p>
+<p><strong>功能：</strong>计算文件或字符串MD5校验码，用于设置或验证WinPE登录密码的MD5校验。</p>
+<p><strong>参数：</strong><br>
+# 文件名 : 要计算MD5校验码的文件全名；字符串: 要计算MD5校验码的字符串。<br>
+# 前导”$”: 表示要计算的是字符串的MD5，如果字符串的第1个字符是”$”，请在前面再添加一个”$”。<br>
+# 变量名 : 用于保存计算结果的变量名。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">MD5C </span><span class="pun">%</span><span class="typ">SystemRoot</span><span class="pun">%</span><span class="pln">\System32\UserInit</span><span class="pun">.</span><span class="pln">EXE</span><span class="pun">,</span><span class="typ">UserInitMD5</span><span class="pln">
+MD5C $Lxl1638</span><span class="pun">,</span><span class="typ">PassWordMD5</span></pre>
+<p><strong>备注：</strong><br>
+* 用MD5C命令计算字符串MD5校验码时，字符串的字符数限定在256以内(不能含”,”字符)。<br>
+* 文件名不要含”,”字符，系统独占文件的MD5校验码是”d41d8cd98f00b204e9800998ecf8427e”或全”0″。<br>
+* 被校验的字符串可以含有中文，英文字母区分大小写。<br>
+* 给出变量名，MD5C命令计算结果保存到指定的变量中，示例2可通过环境变量 %PassWordMD5% 来引用。<br>
+* 省略变量名，MD5C命令的计算结果以消息窗口的形式显示，同时也将结果保存到粘帖板中。</p>
+<h2><span class="ez-toc-section" id="%5BMEMO%5D"></span>[MEMO]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>MEMO &lt;编辑框名称&gt;,&lt;编辑框形状&gt;,[编辑框内容],[目标文件名],[编辑框类型]</p>
+<p><strong>功能：</strong>在_SUB定义的窗口内建立一个多行文本编辑框。</p>
+<p><strong>参数：</strong><br>
+# 编辑框名称: 字串，编辑框名称应是唯一的，不能与其它控件名称或环境变量名称同名。<br>
+# 编辑框形状: 编辑框位置和大小，格式为&lt;L左T上W宽H高&gt;，左上宽高均为数值。<br>
+# 编辑框内容: 初始化编辑框时填入的内容，支持多行文字，文字行间用”\n”表示断行，总长1K以内。<br>
+# 目标文件名: 指定文本文件名，多行文本编辑框的内容由该文件载入。<br>
+# 编辑框类型: 数字，默认省略或为0，表示可编辑的多行文本编辑框，非0表示只读的多行文本编辑框。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">MEMO </span><span class="typ">Memo1</span><span class="pun">,</span><span class="pln">L304T268W280H88</span><span class="pun">,,%</span><span class="typ">CurDir</span><span class="pun">%</span><span class="pln">\Readme</span><span class="pun">.</span><span class="pln">TXT</span><span class="pun">,</span><span class="lit">0</span></pre>
+<p><strong>备注：</strong><br>
+* MEMO命令必须位于_SUB命令和_END命令之间，其它位置的MEMO命令无效，参照_SUB、CALL命令说明。<br>
+* “编辑框内容”不为空时将忽略”目标文件名”，当”编辑框内容”为空时将加载”目标文件名”指定的内容，超长的”编辑框内容”可以通过环境变量赋值来连接成一个新的字符串变量，方便在记事本中阅读。<br>
+* 可用”ENVI @编辑框名称.Enable=数值”来设置编辑框的可用状态；0为不可用状态，非0为可用状态。<br>
+* 可用”ENVI @编辑框名称.ReadOnly=数值”来设置编辑框的只读状态；0为非只读状态，非0为只读状态。</p>
+<h2><span class="ez-toc-section" id="%5BMENU%5D"></span>[MENU]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>MENU &lt;菜单项名称&gt;,[菜单项标题],[菜单项事件],[菜单项状态]</p>
+<p><strong>功能：</strong>向自定义的托盘图标菜单添加一项菜单。</p>
+<p><strong>参数：</strong><br>
+# 菜单项名称: 字符串，除分隔线外，菜单项名称应是唯一的，不能与其它控件或环境变量的名称同名，当菜单项名称或菜单项名称的第一个字符为”-“时表示分隔线，否则表示正常菜单。<br>
+# 菜单项标题: 菜单项上的文字，用于描述菜单项的功能或说明。<br>
+# 菜单项事件: 点击该菜单项时执行的命令，必须是 PECMD 支持的有效命令。<br>
+# 菜单项状态: 默认为0，表示正常可用菜单，非0为灰色禁用菜单。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">MENU </span><span class="typ">Menu2</span><span class="pun">,分辨率</span><span class="lit">1024X768</span><span class="pln"> </span><span class="pun">颜色</span><span class="lit">32</span><span class="pun">位</span><span class="pln"> </span><span class="pun">刷新率</span><span class="lit">85</span><span class="pun">,</span><span class="pln">DISP W1024H768B32F85
+MENU </span><span class="pun">-</span></pre>
+<p><strong>备注：</strong><br>
+* MENU命令必须位于_SUB命令和_END命令之间，其它位置的MENU命令无效，参照_SUB、CALL命令说明。<br>
+* 运行期间暂时不提供修改菜单项标题的支持，即不能通过环境变量 %菜单项名称% 来引用菜单项标题，也不支持用 “ENVI @菜单项名称” 来设置修改菜单项标题。<br>
+* 托盘图标菜单的图标由 _SUB 命令定义的窗口图标来决定，省略时采用 PECMD 的主图标。<br>
+* 可用”ENVI @菜单项名称名称.Enable=数值”来设置编辑框的可用状态；0为不可用状态非0为可用状态。</p>
+<h2><span class="ez-toc-section" id="%5BMESS%5D"></span>[MESS]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>MESS &lt;消息窗文字内容&gt;&lt;@消息窗文字标题&gt;&lt;#消息窗类型&gt;[*自动关闭的时间(毫秒)][$默认的选择]</p>
+<p><strong>功能：</strong>显示一个[是/否]选择消息窗或显示一个带[确定]按钮的消息窗口。</p>
+<p><strong>参数：</strong><br>
+# “消息窗文字内容”支持多行文字，文字行间用”\n”断开；”消息窗类型”目前支持”YN”和”OK”两种类型。<br>
+# 自动关闭的时间设置为0或不设置时，消息窗口不会自动关闭。默认的选择用Y或N表示，如$Y或$N。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">MESS </span><span class="pun">发现物理内存不足，</span><span class="pln">\n</span><span class="pun">是否设置虚拟内存？@设置虚拟内存</span><span class="pln"> </span><span class="com">#YN *10000 $N</span></pre>
+<p><strong>备注：</strong><br>
+* 用户对”YN”类型消息窗的选择结果保存在环境变量 %YESNO% 中，当选择[是]时，环境变量%YESNO%的值为YES，当窗口超时关闭或选择[否]时这一变量值为NO，可用IFEX或FIND命令判断这一环境变量的值。<br>
+* “YN”类型消息窗省略默认的选择参数时自动关闭的返回值为NO。<br>
+* “OK”类型消息窗没有返回值，仅向用户显示提示消息。</p>
+<h2><span class="ez-toc-section" id="%5BMOUN%5D"></span>[MOUN]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>MOUN [!][Wim文件名],&lt;Mount目标目录&gt;,[映像ID],[WimFltr临时工作目录]</p>
+<p><strong>功能：</strong>将WIM文件中的某个映像挂载到指定的目录中或卸下已经挂载上的映像文件。</p>
+<p><strong>参数：</strong><br>
+# Wim文件名 : Microsoft Windows Imaging Format (WIM) 映像格式的文件。<br>
+# Mount目标目录 : 将WIM映像挂载到的目录。<br>
+# Wim文件的映像ID : WIM文件中的映像ID，用数值表示。只读挂载映像时，映像ID为 1 时可省略。<br>
+# WimFltr临时目录 : 当设置WimFltr临时工作目录时表示RW方式挂载，这个目录建议设置到硬盘。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">MOUN </span><span class="pun">%</span><span class="typ">CurDrv</span><span class="pun">%</span><span class="pln">\外</span><span class="pun">置程序</span><span class="pln">\PROGRAMS</span><span class="pun">.</span><span class="pln">WIM</span><span class="pun">,%</span><span class="typ">ProgramFiles</span><span class="pun">%,</span><span class="lit">1</span></pre>
+<p><strong>备注：</strong><br>
+* 文件目录名支持环境变量解释；使用 FBWF 命令时，FBWF 命令须在 MOUN 命令后。<br>
+* 文件名以”\”开始时，则搜索所有分区(含隐藏分区)指定目录的文件，如: MOUN \MyPE\OP.WIM,%PF%,1<br>
+* 前导”!”表示成功挂载隐藏分区中的WIM后，给隐藏分区分配盘符，如: MOUN !\MyPE\OP.WIM,%PF%,1<br>
+* 省略Wim文件名为卸下映像，映像ID为非0表示卸载映像时保存修改内容，为0表示不保存修改内容。</p>
+<h2><span class="ez-toc-section" id="%5BMSTR%5D"></span>[MSTR]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>MSTR &lt;变量名&gt;&lt;=&gt;&lt;字符串&gt;&lt;,位置&gt;&lt;,长度&gt;</p>
+<p><strong>功能：</strong>从指定”字符串”的起始位置截取指定长度的字符，并将结果返回给指定名称的变量。</p>
+<p><strong>参数：</strong><br>
+# 变量名: 用于保存命令结果的变量名；<br>
+# 字符串: 源字符串，长度不能超2K；<br>
+# 位置: 数值，指定源字符串的起始位置；<br>
+# 长度: 数值，指定截取的长度。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">MSTR aStr</span><span class="pun">=</span><span class="lit">1234567890</span><span class="pun">,</span><span class="lit">2</span><span class="pun">,</span><span class="lit">4</span><span class="pln">
+MSTR aStr</span><span class="pun">=</span><span class="lit">1234567890</span><span class="pun">,</span><span class="lit">5</span><span class="pun">,</span><span class="lit">7</span></pre>
+<p><strong>备注：</strong><br>
+* 当”位置”小于1时作1处理，当”长度”小于1或超出源字符串长度时，返回起始位置后的所有字符；<br>
+* 该命令按 Unicode 字符串处理，示例1的返回值为”2345″，示例2的返回值为”567890″。</p>
+<h2><span class="ez-toc-section" id="%5BNAME%5D"></span>[NAME]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>NAME &lt;变量名&gt;&lt;=&gt;&lt;文件名&gt;</p>
+<p><strong>功能：</strong>返回指定文件名的基本名(无目录、无扩展名)</p>
+<p><strong>参数：</strong><br>
+# 变量名: 用于保存命令返回值的变量名<br>
+# 文件名: 被检测的合法的文件名称</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">NAME aFileName</span><span class="pun">=</span><span class="pln">C</span><span class="pun">:</span><span class="pln">\WINDOWS\NOTEPAD</span><span class="pun">.</span><span class="pln">EXE
+NAME aName</span><span class="pun">=%</span><span class="typ">CurDir</span><span class="pun">%</span><span class="pln">\Path1\Path2\FileName</span></pre>
+<p><strong>备注：</strong><br>
+* 指定的文件名为分区的根目录时，该命令的返回结果为空值；<br>
+* 示例1的返回结果为”NOTEPAD”，示例2的返回结果为”FileName”。</p>
+<h2><span class="ez-toc-section" id="%5BNUMK%5D"></span>[NUMK]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>NUMK &lt;数值&gt;</p>
+<p><strong>功能：</strong>控制小数字键盘的开关状态</p>
+<p><strong>参数：</strong><br>
+# 数值0时为关，非0为开</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">NUMK </span><span class="lit">1</span></pre>
+<p><strong>备注：</strong><br>
+* 原有 SEND 命令可实现相同功能，但不十分准确，当 NUMK 为开时，再发送一次按键反而会关掉。</p>
+<h2><span class="ez-toc-section" id="%5BPAGE%5D"></span>[PAGE]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>PAGE &lt;页面文件路径&gt; &lt;初始大小&gt; [最大值]</p>
+<p><strong>功能：</strong>设置页面文件(虚拟内存)。</p>
+<p><strong>参数：</strong><br>
+# 指定页面文件的路径，只能用 DOS 8.3 格式的路径，如”C:\PageFile.sys”。<br>
+# 初始大小和最大值的单位是 MB；当省略最大值时，自动设置 最大值=初始大小。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">PAGE C</span><span class="pun">:</span><span class="pln">\PAGEFILE</span><span class="pun">.</span><span class="pln">SYS </span><span class="lit">128</span><span class="pln"> </span><span class="lit">256</span></pre>
+<p><strong>备注：</strong><br>
+* 如果设置了页面文件，则该分区将无法执行格式化等操作。<br>
+* 当 可用内存&gt;初始大小 时，本命令将不设置页文件，即可以定义初始大小来作为设置页文件的条件。<br>
+* 该命令有智能化功能，即从你定义的页面文件名(含盘符)所在的分区起开始搜索符合条件(硬盘和容量)分区来设置页文件，避开速度慢的U盘和移动硬盘。以U盘或移动硬盘启动时，可能配置文件定义的页文件就在U盘或移动硬盘。经一轮搜索若没有找到符合条件的硬盘分区设置页文件才利用U盘或移动硬盘来设置页文件。</p>
+<h2><span class="ez-toc-section" id="%5BPATH%5D"></span>[PATH]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>PATH [@][#][目录名]</p>
+<p><strong>功能：</strong>操作目录，用于设置PECMD.EXE的当前工作目录或建立目录或删除目录。</p>
+<p><strong>参数：</strong><br>
+# 目录名称(支持带环境变量)。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">PATH </span><span class="pun">@%</span><span class="typ">CurDrv</span><span class="pun">%</span><span class="pln">\外</span><span class="pun">置程序</span><span class="pln"> </span><span class="pun">或</span><span class="pln"> PATH </span><span class="pun">%</span><span class="pln">TEMP</span><span class="pun">%</span></pre>
+<p><strong>备注：</strong><br>
+* 前导”@”表示设置PECMD.EXE的当前目录，方便EXEC、DEVI等命令采用相对路径，以缩短命令行长度。<br>
+* 前导”#”表示删除目录，注意该操作也可能删除同名的文件。<br>
+* 省略前导符”@”和”#”时，PATH用于建立目录(能建立多级目录)。<br>
+* 在配置文件内使用带前导”@”的PATH命令必须谨慎，以防引起错乱。<br>
+* 当参数为空时将恢复 PECMD.EXE 默认的当前目录(%SystemRoot%\SYSTEM32)。</p>
+<h2><span class="ez-toc-section" id="%5BPBAR%5D"></span>[PBAR]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>PBAR &lt;进度条名称&gt;,&lt;进度条形状&gt;,[进度条进度]</p>
+<p><strong>功能：</strong>在_SUB定义的窗口内建立一条进度条。</p>
+<p><strong>参数：</strong><br>
+# 进度条名称: 字串，进度条名称应是唯一的，不能与其它控件名称或环境变量名称同名。<br>
+# 进度条形状: 进度条的位置和大小，格式为&lt;L左T上W宽H高&gt;，左上宽高均为数值。<br>
+# 进度条进度: 数值(1～100)，初始化进度条的进度百分数，默认为0。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">PBAR </span><span class="typ">Pbar1</span><span class="pun">,</span><span class="pln">L360T11W428H16</span><span class="pun">,</span><span class="lit">0</span></pre>
+<p><strong>备注：</strong><br>
+* PBAR命令必须位于_SUB命令和_END命令之间，其它位置的PBAR命令无效，参照_SUB、CALL命令说明。<br>
+* 要设置进度条的进度，可以使用 “ENVI @进度条名称=数值” 来设置 ，参照 ENVI 命令的说明；当设置的数值小于0时将会使进度条隐藏，大于100的数值将被忽略。</p>
+<h2><span class="ez-toc-section" id="%5BRADI%5D"></span>[RADI]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>RADI &lt;单选框名称&gt;,&lt;单选框形状&gt;,[单选框标题],[单选框事件],[单选框状态],[单选框组ID]</p>
+<p><strong>功能：</strong>在_SUB定义的窗口内建立一个单选框控件。</p>
+<p><strong>参数：</strong><br>
+# 单选框名称: 字符串，单选框的名称应是唯一的，不能与其它控件名称或环境变量名称同名。<br>
+# 单选框形状: 单选框位置和大小，格式为&lt;L左T上W宽H高&gt;，左上宽高均为数值。<br>
+# 单选框标题: 单选框上的文字，用于描述单选框的功能或说明。<br>
+# 单选框事件: 点击该复选框时执行的命令，必须是 PECMD 支持的有效命令。<br>
+# 单选框状态: 数字，1或-1为钩选状态，0，2或-2为没有钩选，小于0为灰色不可用状态。<br>
+# 单选框组ID: 数字，默认为0，可以将多个单选框分组，组内的单选框可以多选一，组间互不影响。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">RADI </span><span class="typ">RadioButton1</span><span class="pun">,</span><span class="pln">L32T314W100H20</span><span class="pun">,卸载</span><span class="typ">WimShExt</span><span class="pun">.</span><span class="pln">DLL</span><span class="pun">,</span><span class="pln">ENVI </span><span class="lit">@Group1</span><span class="pun">=%</span><span class="typ">RadioButton1</span><span class="pun">%,</span><span class="lit">1</span><span class="pun">,</span><span class="lit">1</span></pre>
+<p><strong>备注：</strong><br>
+* RADI命令必须位于_SUB命令和_END命令之间，其它位置的RADI命令无效，参照_SUB、CALL命令说明。<br>
+* 要设置单选框标题，可使用 “ENVI @单选框名称=单选框标题” 来设置，参照 ENVI 命令的说明。<br>
+* 可用”ENVI @单选框名称.Check=数值”来设置单选框钩选状态，数值0为未钩选状态；非0为钩选状态。<br>
+* 可用”ENVI @单选框名称.Enable=数值”来设置单选框可用状态，数值0为禁用状态；非0为可用状态。</p>
+<h2><span class="ez-toc-section" id="%5BRAMD%5D"></span>[RAMD]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>RAMD [P可用内存百分数] [L最小值] [H最大值]</p>
+<p><strong>功能：</strong>设置RamDisk大小</p>
+<p><strong>参数：</strong><br>
+# 最大值、最小值均为MB。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">RAMD P20 L32 H64</span></pre>
+<p><strong>备注：</strong><br>
+* 三个参数都可单独使用，如使用 RAMD P10 时，将可用内存的10%设置为RamDisk。</p>
+<h2><span class="ez-toc-section" id="%5BREGI%5D"></span>[REGI]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>REGI [前导]&lt;HKLM|HKCU|HKCR|HKU|HKCC&gt;&lt;\子项\&gt;{&lt;键名,变量名&gt;|[[键名][操作符][[类型符]数据值]]}</p>
+<p><strong>功能：</strong>读取或设置、删除注册表数据。</p>
+<p><strong>参数：</strong><br>
+# 前导符”$”、”#”、”@”分别表示读取注册表中的REG_SZ、REG_DWORD、REG_BINARY类型数据，省略表示设置、删除注册表数据。变量名(默认为RegDat)用于保存返回值。<br>
+# 子项名所选 ROOTKEY 下注册表项的完整名。<br>
+# 键值名要操作的键值名。省略则操作默认键值；如果操作符为”!”且没有”=”，则用于删除整个子项。<br>
+# 操作符操作符”!”为删除整个子项；操作符”=”且没有数据为删除；操作符”=”且有数据为设置数据。<br>
+# 类型符数据类型。省略为字符串；”#”为REG_DWORD类型数据，如”#0x20″；”@”为REG_BINARY类数据，如”@23 34 90 255″<br>
+# 数据值字符串空值用””表示、REG_DWORD类型数据、REG_BINARY类型数据支持16进制数值。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">REGI HKCU\SOFTWARE\WinCMD\Version</span><span class="pun">=</span><span class="com">#1200</span><span class="pln">
+REGI HKCR\lnkfile\IsShortcut</span><span class="pun">=</span><span class="str">""</span><span class="pln">
+REGI $HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell </span><span class="typ">Folders</span><span class="pln">\Cache</span><span class="pun">,</span><span class="typ">IECache</span></pre>
+<p><strong>备注：</strong><br>
+* 此命令比较复杂，请仔细看说明，示例3为读取IE缓存的位置。</p>
+<h2><span class="ez-toc-section" id="%5BRPOS%5D"></span>[RPOS]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>RPOS &lt;变量名&gt;&lt;=&gt;&lt;字符串&gt;&lt;,字符&gt;&lt;,数值&gt;</p>
+<p><strong>功能：</strong>返回指定”字符”在”字符串”右边起出现的位置。</p>
+<p><strong>参数：</strong><br>
+# 变量名: 用于保存命令结果的变量名；<br>
+# 字符串: 被检测的字符串，长度不能超2K；<br>
+# 字符: 被检测的字符，不区分大小写；<br>
+# 数值: 指定被检测的字符出现的次数。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">RPOS iPos</span><span class="pun">=</span><span class="lit">123A56</span><span class="pun">|</span><span class="lit">1234A6</span><span class="pun">|</span><span class="pln">abcdef</span><span class="pun">,</span><span class="pln">a</span><span class="pun">,</span><span class="lit">2</span><span class="pln">
+RPOS iPos</span><span class="pun">=</span><span class="lit">123A56</span><span class="pun">|</span><span class="lit">1234A6</span><span class="pun">|</span><span class="pln">abcdef</span><span class="pun">,</span><span class="pln">a</span><span class="pun">,</span><span class="lit">3</span></pre>
+<p><strong>备注：</strong><br>
+* 当”数值”小于1时返回最左边被检测字符的位置，如上例的结果是4；返回结果为0时表示没有找到。<br>
+* 该命令按 Unicode 字符串处理，示例1的返回值为12，示例2的返回值为4。</p>
+<h2><span class="ez-toc-section" id="%5BRSTR%5D"></span>[RSTR]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>RSTR &lt;变量名&gt;&lt;=&gt;&lt;字符串&gt;&lt;,数目&gt;</p>
+<p><strong>功能：</strong>从指定”字符串”的右边截取指定数目的字符，并将结果返回给指定名称的变量。</p>
+<p><strong>参数：</strong><br>
+# 变量名: 用于保存命令结果的变量名；<br>
+# 字符串: 源字符串，长度不能超2K；<br>
+# 数目: 指定截取字符的数目。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">RSTR aStr</span><span class="pun">=</span><span class="lit">1234567890</span><span class="pun">,</span><span class="lit">2</span><span class="pln">
+RSTR aStr</span><span class="pun">=</span><span class="lit">1234567890</span><span class="pun">,</span><span class="lit">5</span></pre>
+<p><strong>备注：</strong><br>
+* 当”数值”小于1时或超出源字符串的长度时，返回结果为整个源字符串(相当于字符串复制)；<br>
+* 该命令按 Unicode 字符串处理，示例1的返回值为”90″，示例2的返回值为”67890″。</p>
+<h2><span class="ez-toc-section" id="%5BRUNS%5D"></span>[RUNS]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>RUNS &lt;程序命令&gt;&lt;*|,&gt;&lt;启动项名称&gt;</p>
+<p><strong>功能：</strong>设置Windows的启动项</p>
+<p><strong>参数：</strong><br>
+# 程序命令为EXE、CMD、BAT各种可执行的命令，可带参数；启动项名称为文字。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">RUNS PECMD</span><span class="pun">.</span><span class="pln">EXE EXEC </span><span class="pun">!%</span><span class="typ">CurDrv</span><span class="pun">%</span><span class="pln">\外</span><span class="pun">置程序</span><span class="pln">\DRIVER\STARTDRIVER</span><span class="pun">.</span><span class="pln">CMD</span><span class="pun">,安装驱动。</span></pre>
+<p><strong>备注：</strong><br>
+* 原REGI命令可实现相同的功能，只是用REGI命令表示需要文字太长，才将这一功能单独做成一条命令。<br>
+* 程序命令和启动项名称之间的分隔符为右起的”*”或左起的”。<br>
+* 本命令不能在命令行中使用，只能在配置文件中使用。</p>
+<h2><span class="ez-toc-section" id="%5BSEND%5D"></span>[SEND]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>SEND &lt;按键代码1[_|^]&gt;,[按键代码2],[按键代码3]…</p>
+<p><strong>功能：</strong>模拟按键。</p>
+<p><strong>参数：</strong><br>
+# 虚拟按键代码，如VK_NUMLOCK，请参相关考编程文档。如果按键代码以”_”结束，则仅模拟按键按下；”^”则仅模拟按键弹起；否则模拟按下并弹起。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">SEND </span><span class="lit">0x12</span><span class="pln">_</span><span class="pun">,</span><span class="lit">0x09</span><span class="pln">_</span><span class="pun">,</span><span class="lit">0x09</span><span class="pun">^,</span><span class="lit">0x12</span><span class="pun">^</span></pre>
+<p><strong>备注：</strong><br>
+* 上面的示例模拟 Alt+Tab。按键代码支持 16 进制和十进制。</p>
+<h2><span class="ez-toc-section" id="%5BSERV%5D"></span>[SERV]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>SERV [!]&lt;服务名称&gt;</p>
+<p><strong>功能：</strong>启动或停止服务或驱动程序。</p>
+<p><strong>参数：</strong><br>
+# 指定服务名称。前导”!”表示停止服务，否则启动服务。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">SERV FBWF</span></pre>
+<p><strong>备注：</strong><br>
+* 此命令来启动FBWF服务(如果安装了的话)，以增加系统盘的可写空间，这样PE就能在光盘上运行了。</p>
+<h2><span class="ez-toc-section" id="%5BSHEL%5D"></span>[SHEL]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>SHEL &lt;文件名(含路径)&gt;,[密码MD5字符串],[重试次数]</p>
+<p><strong>功能：</strong>加载指定的SHELL，并将SHELL锁定。</p>
+<p><strong>参数：</strong><br>
+# 文件名为SHELL文件名(含路径，可使用环境变量)。<br>
+# 密码是英文字母和数字，区分大小写，密码的最大长度是12个字符。<br>
+# 省略密码MD5字符串时会自动登录，默认的重试机会为3次。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">SHEL </span><span class="pun">%</span><span class="typ">SystemRoot</span><span class="pun">%</span><span class="pln">\EXPLORER</span><span class="pun">.</span><span class="pln">EXE</span><span class="pun">,</span><span class="pln">e10adc3949ba59abbe56e057f20f883e</span><span class="pun">,</span><span class="lit">5</span></pre>
+<p><strong>备注：</strong><br>
+* 本命令功能与EXEC $相似，修改进程中关机代码(挂接”ExitWindowsEx”函数)。<br>
+* 本命令同时具有锁定SHELL的功能，当SHELL被杀时能自动加载SHELL。<br>
+* 带登录密码的SHELL命令，建议在它之前开启LOGO命令。<br>
+* SHEL命令之后的TEXT命令的各参数可能要重新设置。<br>
+* SHEL命令必须在HOTK命令之后，本命令不能在命令行中使用，只能在配置文件中使用。</p>
+<h2><span class="ez-toc-section" id="%5BSHOW%5D"></span>[SHOW]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>SHOW [硬盘号|标识符][:分区号],[盘符]</p>
+<p><strong>功能：</strong>显示系统存在的移动硬盘或固定硬盘的隐藏分区，并给这些分区分配盘符。</p>
+<p><strong>参数：</strong><br>
+# 硬盘号: 本机中存在的硬盘，”0″表示”hd0″，”1″表示”hd1″，”2″表示”hd2″，依次类推；<br>
+# 标识符: 表示硬盘类型的标识，固定硬盘用”F”表示，移动硬盘用”R”表示，标识符与硬盘号只取其一；<br>
+# 分区号: “0”表示所有还没指派盘符的分区，”1″表示第1分区，”2″表示第2分区，依次类推；<br>
+# 盘符: 用字母”C～Z”表示(不带”:”)，省略”盘符”或设置盘符不合理时由 PECMD.EXE 自动分配盘符。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">SHOW </span><span class="lit">0</span><span class="pun">:</span><span class="lit">1</span><span class="pun">,</span><span class="pln">H
+SHOW R</span><span class="pun">:</span><span class="lit">1</span><span class="pun">,</span><span class="pln">U
+SHOW F</span><span class="pun">:</span><span class="lit">0</span><span class="pln">
+SHOW</span></pre>
+<p><strong>备注：</strong><br>
+* 某些机型在WinPE启动后已经可以识别移动硬盘，但没有为移动硬盘指派盘符，可以通过 SHOW 命令的”R”标识符为移动硬盘分配盘符，示例2表示给”移动硬盘的第1分区”指派为盘符”U:”；<br>
+* 示例1表示”硬盘0隐藏分区1″指派为盘符”H:”，示例3表示自动为”固定硬盘的所有隐藏分区”指派盘符；<br>
+* 删除盘符可用SUBJ命令，该命令与SUBJ命令配合，可载入隐藏分区的外置程序并保持原分区隐藏属性。</p>
+<h2><span class="ez-toc-section" id="%5BSHUT%5D"></span>[SHUT]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>SHUT [H|E|R|S]</p>
+<p><strong>功能：</strong>关闭或重启计算机等操作。</p>
+<p><strong>参数：</strong><br>
+# 无参数 : 默认为关闭系统；<br>
+# 参数”H”: 执行休眠操作，只能在正常系统中使用，系统必须支持休眠(可在控制面板中启用休眠)；<br>
+# 参数”E”: 关闭系统前先弹出光驱，10秒后再关闭系统；<br>
+# 参数”R”: 执行重启系统操作；<br>
+# 参数”S”: 执行挂起系统操作，只能在正常系统中使用。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">SHUT E
+SHUT R
+SHUT H
+SHUT S</span></pre>
+<p><strong>备注：</strong><br>
+* 该命令可在命令行中使用，此功能是快速关机，可能不会保存所有数据。</p>
+<h2><span class="ez-toc-section" id="%5BSITE%5D"></span>[SITE]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>SITE &lt;文件目录路径&gt;,&lt;文件目录属性&gt;</p>
+<p><strong>功能：</strong>设置或清除文件目录的属性,SITE命令支持A、H、R、S 四种属性。</p>
+<p><strong>参数：</strong><br>
+# 设置属性用”+”，清除属性用”-“，(A=ARCHIVE; H=HIDDEN; R=READONLY; S=SYSTEM)</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">SITE </span><span class="pun">%</span><span class="typ">SystemRoot</span><span class="pun">%</span><span class="pln">\System32\PELOGON</span><span class="pun">.</span><span class="pln">EXE</span><span class="pun">,+</span><span class="pln">H</span><span class="pun">+</span><span class="pln">R</span></pre>
+<p><strong>备注：</strong><br>
+* SITE命令既可设置文件属性，也可设置目录属性。</p>
+<h2><span class="ez-toc-section" id="%5BSTRL%5D"></span>[STRL]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>STRL &lt;变量名&gt;&lt;=&gt;&lt;字符串&gt;</p>
+<p><strong>功能：</strong>返回指定”字符串”的长度。</p>
+<p><strong>参数：</strong><br>
+# 变量名: 用于保存命令结果的变量名；<br>
+# 字符串: 被检测的字符串，长度不能超2K；</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">STRL iLen</span><span class="pun">=</span><span class="lit">1234567890</span><span class="pln">
+STRL dLen</span><span class="pun">=一二三四五</span></pre>
+<p><strong>备注：</strong><br>
+* 该命令的返回结果是Unicode字符串的长度，示例1的返回值为10，示例2的返回值为5</p>
+<h2><span class="ez-toc-section" id="%5BSUBJ%5D"></span>[SUBJ]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>SUBJ &lt;虚拟驱动器&gt;,[指派给虚拟驱动器的路径]</p>
+<p><strong>功能：</strong>将路径与驱动器号关联，相当于CMD的 SUBST 命令。</p>
+<p><strong>参数：</strong><br>
+# 如果省略”指派给虚拟驱动器的路径”，则删除指定的虚拟驱动器。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">SUBJ B</span><span class="pun">:,</span><span class="pln">X</span><span class="pun">:</span><span class="pln">\PE_Tools</span></pre>
+<p><strong>备注：</strong><br>
+* 虚拟时，虚拟驱动器须是不存在的；删除虚拟驱动器时，盘符必须准确，否则可能会删除物理驱动器。</p>
+<h2><span class="ez-toc-section" id="%5BTEAM%5D"></span>[TEAM]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>TEAM [命令1][|命令2][|命令3]…[|命令n]</p>
+<p><strong>功能：</strong>按顺预执行指定命令群组中的各条命令。</p>
+<p><strong>参数：</strong><br>
+# 一条或多条命令，多条命令之间用”|”分开。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">TEAM TEXT </span><span class="pun">载入桌面|</span><span class="pln">LOGO</span><span class="pun">|</span><span class="pln">SHEL </span><span class="pun">%</span><span class="typ">SystemRoot</span><span class="pun">%</span><span class="pln">\EXPLORER</span><span class="pun">.</span><span class="pln">EXE</span><span class="pun">|</span><span class="pln">WAIT </span><span class="lit">3000</span></pre>
+<p><strong>备注：</strong><br>
+* 本命令后面的命令中不能嵌入IFEX或FIND命令。</p>
+<h2><span class="ez-toc-section" id="%5BTEMP%5D"></span>[TEMP]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>TEMP &lt;[@]Delete|Setting&gt;</p>
+<p><strong>功能：</strong>清理用户临时文件夹或重新设用户置临时文件夹的位置。</p>
+<p><strong>参数：</strong><br>
+# Delete表示清理临时目录，前导@表示不经用户确认直接清理；Setting表示重新设置临时目录的位置。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">TEMP </span><span class="typ">Delete</span></pre>
+<p><strong>备注：</strong><br>
+* 不要在配置文件使用本命令，必须启动到桌面使用；本命令是从注册表读取临时目录位置。</p>
+<h2><span class="ez-toc-section" id="%5BTEXT%5D"></span>[TEXT]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>TEXT [文字行1][\n]文字行2[\n]文字行3…][#颜色][L左][T上][R右][B下][$字体大小]</p>
+<p><strong>功能：</strong>在登录画面中或桌面窗口显示文字。</p>
+<p><strong>参数：</strong><br>
+# 文字为空则清除最近定义的矩形区内的文字；默认颜色为白色，默认坐标大致在左上角；结尾”*”表示显示新文字前不清除原来已显示的文字。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">TEXT </span><span class="pun">正在注册组件……</span><span class="com">#0xFFDDDD L4 T720 R300 B768 $20</span></pre>
+<p><strong>备注：</strong><br>
+* 本命令支持多行显示文字，文字行间用”\n”表示断行。<br>
+* 字体大小默认为14(相当宋体小5号)。<br>
+* 指定的位置[左,上,右,下]与文字的长度和字体的大小有关。<br>
+* 本命令在登录期间(配置文件)中使用时将在登录画面显示文字，在Windows中(登录后)使用将在桌面窗口显示文字；当文字为空时则清除最近定义的矩形区内的文字。</p>
+<h2><span class="ez-toc-section" id="%5BTIME%5D"></span>[TIME]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>TIME &lt;定时器名称&gt;,&lt;定时器周期&gt;,[定时器事件]</p>
+<p><strong>功能：</strong>在_SUB定义的窗口内建立一个定时器控件。</p>
+<p><strong>参数：</strong><br>
+# 定时器名称: 字符串，定时器的名称应是唯一的，不能与其它控件名称或环境变量名称同名。<br>
+# 定时器周期: 数字，单位为毫秒，数值大于0表示定时器即刻工作，数值为0时表示定时器暂停工作。<br>
+# 定时器事件: 触发定时器时执行的命令，必须是 PECMD 支持的有效命令。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">TIME </span><span class="typ">Timer1</span><span class="pun">,</span><span class="lit">10000</span><span class="pun">,</span><span class="pln">FILE </span><span class="pun">%</span><span class="pln">TEMP</span><span class="pun">%</span><span class="pln">\*</span><span class="pun">.*</span></pre>
+<p><strong>备注：</strong><br>
+* TIME命令必须位于_SUB命令和_END命令之间，其它位置的TIME命令无效，参照_SUB、CALL命令说明。<br>
+* 环境变量 %定时器名称% 为定时器的工作状态，0为暂停，非0为已启动。<br>
+* 暂停定时器可用 “ENVI @定时器名=0″，再启动定时器可用”ENVI @定时器名=定时器周期(数值)” 。</p>
+<h2><span class="ez-toc-section" id="%5BTIPS%5D"></span>[TIPS]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>TIPS [提示框标题],&lt;提示框内容&gt;,[提示框寿命],[图标样式ID],[&lt;@[A]提示框位置&gt;|[托盘栏图标]]</p>
+<p><strong>功能：</strong>在屏幕指定位置或托盘处显示一个气泡提示框，省略所有参数时表示清除托盘栏无效图标。</p>
+<p><strong>参数：</strong><br>
+# 提示框标题: 字符串，提示框标题处显示的文字，长度不能超过64个字符，超出部分无效。<br>
+# 提示框内容: 字符串，提示框显示的正文内容，长度不能超过256个字符，可以用”\n”表示分行。<br>
+# 提示框寿命: 数字，表示提示框持续显示的时间(毫秒)，省略为默认10秒，最长显示时间由系统决定。<br>
+# 图标样式ID: 数字，默认0(无图标)，1(信息图标)，2(警告图标)，3(错误图标)，4或以上(托盘图标)<br>
+# 提示框位置: 必须带前导”@”，表示在屏幕指定位置显示提示框，前导”A”表示箭型提示框，省略”A”时表示方型提示框，位置用LxxTyy表示(xx、yy代表数字)，该参数与”托盘栏图标”不能同用<br>
+# 托盘栏图标: 格式为”文件名#数字”，省略”文件名”时使用 PECMD.EXE 程序资源中指定的图标。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">TIPS </span><span class="pun">标题,内容</span><span class="pln">\n</span><span class="pun">可分行</span><span class="pln">\n</span><span class="pun">第</span><span class="lit">3</span><span class="pun">行,</span><span class="lit">5000</span><span class="pun">,</span><span class="lit">1</span><span class="pun">,</span><span class="com">#1</span><span class="pln">
+TIPS </span><span class="pun">标题,内容</span><span class="pln">\n</span><span class="pun">可分行</span><span class="pln">\n</span><span class="pun">第</span><span class="lit">3</span><span class="pun">行,</span><span class="lit">5000</span><span class="pun">,</span><span class="lit">2</span><span class="pun">,</span><span class="lit">@aL600T400</span></pre>
+<p><strong>备注：</strong><br>
+* 托盘栏气泡提示框可以在 PECMD.EXE 结束后继续显示，PECMD.EXE 生命比提示框寿命长时 PECMD.EXE会在指定时间后结束提示框；PECMD.EXE 生命期结束后仍然存在的提示框由系统或用户处理。<br>
+* 屏幕提示框在 PECMD 结束后也结束，所以要保证 PECMD 生命期比提示框寿命稍长( WAIT 命令延时)。</p>
+<h2><span class="ez-toc-section" id="%5BUPNP%5D"></span>[UPNP]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>UPNP [$]&lt;参数&gt;</p>
+<p><strong>功能：</strong>执行 BartPE.EXE 的功能。</p>
+<p><strong>参数：</strong><br>
+# 前导”$” 表示显示 BartPE.EXE 的执行界面；<br>
+# 参数为 BartPE.EXE 的命令行参数。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">UPNP </span><span class="pun">-</span><span class="pln">pnp
+UPNP $</span><span class="pun">-</span><span class="pln">pnp</span></pre>
+<p><strong>备注：</strong><br>
+* 本命令内钳新版 BartPE.EXE 执行代码，WinPE 无需 BartPE.EXE 文件也可完成 BartPE.EXE 的功能；<br>
+* 本命令为阻塞模式执行，命令完成后才执行下一条命令；注意 BartPE.EXE 参数及其大小写。</p>
+<h2><span class="ez-toc-section" id="%5BUSER%5D"></span>[USER]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>USER &lt;用户名&gt;&lt;*|,&gt;&lt;公司名&gt;</p>
+<p><strong>功能：</strong>设置”我的电脑”右键菜单属性中的用户名和公司名。</p>
+<p><strong>参数：</strong><br>
+# 参数为文字。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">USER </span><span class="pun">微软用户*微软公司</span><span class="pln">
+USER </span><span class="pun">微软用户,微软公司</span></pre>
+<p><strong>备注：</strong><br>
+* 用户名和公司名之间的分隔符为右起的”*”或左起的”,”。本命令仅能在配置文件中使用。</p>
+<h2><span class="ez-toc-section" id="%5BWAIT%5D"></span>[WAIT]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>WAIT [-][等待时间],[量变名称]</p>
+<p><strong>功能：</strong>暂停或等待指定时间后再继续执行命令。</p>
+<p><strong>参数：</strong><br>
+# 前导”-” : 在指定的等待时间内遇到任何按键即中止等待，否则直至等待时间结束；<br>
+# 等待时间: 数值(单位毫秒)，数值为0时遇到按键即中止，若无按键会无限等待(相当于任意键继续)；<br>
+# 量变名称: 用于保存等待期间按键的变量，用户的按键结果将保存在指定的变量中。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">WAIT </span><span class="lit">2000</span><span class="pln">
+WAIT </span><span class="lit">0</span><span class="pun">,</span><span class="typ">PKey</span></pre>
+<p><strong>备注：</strong><br>
+* 参数为0则暂停，任意键继续，不要在短时间间隔内连续使用暂停功能，也建议暂停功能只使用一次；WAIT 0可检测用户的按键’A’～’Z’或’0’～’9’，省略变量名时按键结果保存在环境变量%PressKey%中。</p>
+<h2><span class="ez-toc-section" id="%5BWALL%5D"></span>[WALL]<span class="ez-toc-section-end"></span></h2>
+<p><strong>格式：</strong>WALL &lt;壁纸文件名&gt;</p>
+<p><strong>功能：</strong>设置壁纸</p>
+<p><strong>参数：</strong><br>
+# 参数为壁纸文件名。</p>
+<p><strong>示例：</strong></p>
+<pre class="prettyprint"><span class="pln">WALL </span><span class="pun">%</span><span class="typ">CurDrv</span><span class="pun">%</span><span class="pln">\外</span><span class="pun">置程序</span><span class="pln">\WallPage</span><span class="pun">.</span><span class="pln">JPG</span></pre>
+<p><strong>备注：</strong><br>
+* 支持环境变量、支持各种格式的图形文件。设置壁纸的 WALL 必须在加载桌面 SHEL 命令之前。<br>
+* 本命令不能在命令行中使用，只能在配置文件中使用。</p>
+				</article>
+</div>
+</footer>
+
+
+<div class="rollbar rollbar-rb"><ul>
+<li><a target="_blank" href="http://pecmd.net"><i class="iconfont fa-link">#</i><span>社区首页</span></a><h6>社区首页<i></i></h6></li>
+<li class="rollbar-totop"><a href="javascript:(scrollTo());"><i class="iconfont fa-angle-up"></i><span>回顶部</span></a><h6>回顶部<i></i></h6></li></ul>
+</div>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="main.js"></script>
