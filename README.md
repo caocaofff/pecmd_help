@@ -23,4 +23,4 @@ PECMD 全称 WinPE Commander，即 WinPE 命令解释工具。由于其强大功
 - 欢迎翻译 PECMD在线手册 帮助文档
 
 ## 其它
-- [待编写的文档](https://pecmd.net/doc/index.txt)
+- [待编写的文档](https://pecmd.net/doc/cn.txt)
